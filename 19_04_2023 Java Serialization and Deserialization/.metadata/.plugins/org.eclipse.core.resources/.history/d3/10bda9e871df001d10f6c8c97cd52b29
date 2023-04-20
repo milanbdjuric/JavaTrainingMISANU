@@ -1,0 +1,45 @@
+package djuric;
+
+import java.io.*;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		Synthesizer sint = new Synthesizer("Roland Juno", 60);
+		String imeFajla = "fajl.ser";
+		
+		try {
+			FileOutputStream fajl = new FileOutputStream(imeFajla);
+			ObjectOutputStream out = new ObjectOutputStream(fajl);
+			
+			out.writeObject(sint);
+			
+			out.close();
+			fajl.close();
+			
+			System.out.println("Serijalizovali smo objekat.\n"
+					+ "IME: " + sint.getIme() + "\nMODEL: " + sint.getModel());
+		}
+		
+		catch(Exception e) {
+			System.out.println("Ufatismo exception!");
+		}
+		
+		try {
+			FileInputStream fajl = new FileInputStream(imeFajla);
+			ObjectInputStream input = new ObjectInputStream(fajl);
+			
+			Synthesizer sint2 = (Synthesizer)input.readObject();
+			
+			input.close();
+			fajl.close();
+			
+			System.out.println("Deserijalizovali smo objekat.\n"
+					+ "IME: " + sint2.getIme() + "\nMODEL: " + sint2.getModel());
+		}
+		catch(Exception e) {
+			System.out.println("Ufatismo exception!");
+		}
+	}
+}

@@ -1,0 +1,37 @@
+package djuric;
+
+/* Serijalizacija objekata u Javi je proces konverzije stanja objekta u bytestream.
+ * Vrsi se da bi se objekat sacuvao ili preneo preko mreze.
+ * 
+ * Deserijalizacija objekata je obrnuti proces - to je konverzija objekta iz bajtova u njihov izvorni oblik u memoriji.
+ * 
+ * Serijalizaciju i deserijalizaciju objekata omogucavaju klase koje implementiraju interfejs Serializable.
+ * 
+ * Interfejs Serializable nema metode. Njegovom implementacijom u odredjenu klasu mozemo serijalizovati njene objekte.
+ * 
+ */
+
+import java.io.Serializable;
+
+public class Synthesizer implements Serializable{
+
+	private String ime;
+	private int model;
+	
+	Synthesizer(String name, int model){
+		this.ime = name;
+		this.model = model;
+	}
+	
+	public String getIme() {
+		return ime;
+	}
+	
+	public int getModel(){
+		return model;
+	}
+	
+	
+	
+
+}

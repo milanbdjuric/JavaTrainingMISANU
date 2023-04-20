@@ -1,0 +1,62 @@
+package djuric;
+
+import java.io.*;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		// pravimo objekat tipa Synthesizer
+		
+		Synthesizer sint = new Synthesizer("Roland Juno", 60);
+		
+		// kreiramo novi fajl gde cemo smestiti objekat
+		
+		File fajl = new File("fajl.ser");
+		
+		// SERIJALIZACIJA:
+		
+		try {
+			// prvo sacuvamo objekat u fajlu ... 
+			
+			FileOutputStream fos = new FileOutputStream(fajl);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			// ... pa pozivamo metodu za serijalizaciju:
+			
+			oos.writeObject(sint);
+			
+			oos.close();
+			fos.close();
+			
+			System.out.println("Serijalizovali smo objekat.\n"
+					+ "IME: " + sint.getIme() + "\nMODEL: " + sint.getModel());
+		}
+		
+		catch(Exception e) {
+			System.out.println("Ufatismo exception!");
+		}
+		
+		// DESERIJALIZACIJA:
+		
+		try {
+			// prvo procitamo objekat iz fajla...
+			
+			FileInputStream fis = new FileInputStream(fajl);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			// ... pa pozivamo metodu za deserijalizaciju:
+			
+			Synthesizer sint2 = (Synthesizer)ois.readObject();
+			
+			fis.close();
+			ois.close();
+			
+			System.out.println("Deserijalizovali smo objekat.\n"
+					+ "IME: " + sint2.getIme() + "\nMODEL: " + sint2.getModel());
+		}
+		catch(Exception e) {
+			System.out.println("Ufatismo exception!");
+		}
+	}
+}

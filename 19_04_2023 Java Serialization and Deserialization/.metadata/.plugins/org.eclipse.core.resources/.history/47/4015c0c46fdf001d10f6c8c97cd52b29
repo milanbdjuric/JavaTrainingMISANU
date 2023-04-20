@@ -1,0 +1,19 @@
+package djuric;
+
+import java.io.Serializable;
+
+public class Synthesizer implements Serializable{
+
+	String name;
+	int model;
+	
+	Synthesizer(String name, int model){
+		this.name = name;
+		this.model = model;
+	}
+	
+	
+	
+	
+
+}

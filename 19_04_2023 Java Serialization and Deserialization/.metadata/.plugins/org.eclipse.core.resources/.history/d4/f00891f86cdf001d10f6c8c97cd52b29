@@ -1,0 +1,9 @@
+package djuric;
+
+import java.io.Serializable;
+
+public class Synthesizer implements Serializable{
+	
+	
+
+}
