@@ -1,0 +1,108 @@
+package djuric;
+
+/*
+ * Regularni izrazi (regular expressions) ili regex su posebne sintakse koje sluze
+ * za pretragu ili/i manipulaciju tekstom tj. stringovima, na osnovu odredjenih kriterijuma. 
+ * Sastoje se od regularnih karaktera koji predstavljaju tekst koji se trazi, kao i
+ * od specijalnih karaktera koji predstavljaju razlicite obrasce (patterns).Regex nema
+ * posebnu klasu, i da bi se radilo s njim uvodi se java.util.regex paket.
+ */
+
+import java.util.regex.*;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		// postoje dve klase koje podrzavaju regex - Pattern i Matcher koje rade zajedno
+		
+		Pattern pat = Pattern.compile("nesto"); // metoda za obrazac koji trazimo...
+		
+		Matcher mat = pat.matcher("Da vidimo da li nesto ima u ovom tekstu."); // ... i metoda za gde da ga trazimo
+		
+		if(mat.find()) { // - find je boolean metoda Matchera, vraca true ako je nadjen patern
+			System.out.println("Obrazac `" + pat.toString() + "` je nadjen u tekstu.");
+		}
+		else
+			System.out.println("Obrazac `" + pat.toString() + "` nije pronadjen u tekstu.");
+		
+		/*
+		 * U ovom slucaju je kao regex upotrebljen string regularnih karaktera. Postoje i specijalni
+		 * karakteri za pretragu/manipulaciju teksta:
+		 * 
+		 * 	.				odgovara bilo kom karakteru
+		 * 	^tekst			pronalazi regex koji mora da se podudara na pocetku reda
+		 * 	tekst$			pronalazi regex koji mora da se podudara na kraju reda
+		 * 	[xyz]			moze da odgovara slovu ili x ili y ili z
+		 * 	[xyz][abc]		moze da odgovara slovu ili x ili y ili z, posle cega idu ili a ili b ili c
+		 * 	[^xyz]			negacija obrasca. znaci moze bilo koje slovo osim x ili y ili z
+		 * 	[a-e2-8]		opseg. znaci podudara se sa slovom izmedju a i e i ciframa od 2 do 8
+		 * 	a|b				nalazi a ili b
+		 * 	AB				nalazi A i odmah iza njega B
+		 * 	$				proverava da li je kraj reda
+		 * 
+		 * Regex meta-karakteri:
+		 * 
+		 * 	\d				da se nadje bilo koja cifra, kao [0-9]
+		 * 	\D				negacija prethodnog, kao [^0-9]
+		 * 	\s				white space karakter, razmak
+		 * 	\S				negacija prethodnog, bez razmaka
+		 * 	\w				skraceniza za rec(word), [a-zA-Z_0-9]
+		 * 	\W				negacija, karakter koji nije rec [^\w]
+		 * 	\S+				nekoliko razmaka
+		 * 	\b				granicnik za rec. npr "\btekst\b" bi trazio samo "tekst" kao zasebnu rec,
+		 * 					ali NE i u okviru drugih stringova ("tekstualno", npr) 
+		 * 
+		 * Kvantifikatori:
+		 * 
+		 * 	*				pojavljuje se 0 ili vise puta, kao {0,}
+		 * 	+				pojavljuje se 1 ili vise puta, kao (1,}
+		 * 	?				pojavljuje se nijednom ili jednom, kao {0,1}
+		 * 	{X}				pojavljuje se X puta.
+		 * 	{X,Y}			pojavljuje se izmedju X i Y puta
+		 * 	*?				znak pitanja posle kvantifikatora znaci da regex prestaje da trazi dalje kad jednom nadje
+		 * 
+		 * Regexe je moguce grupisati zagradama(); tako je moguce dodeliti operator ponavljanja celoj grupi.
+		 */
+		
+		// Stringovi u Javi imaju i neke ugradjene metode za regexe:
+		
+		String recenica = "Moram da predam task do pola 6.";		
+		System.out.println(recenica);
+		
+		// matches("regex") je boolean metoda koja proverava da li se regex poklapa sa stringom
+		
+		System.out.println("Da li u ovom tekstu ima cifara od 1 do 5? " + recenica.matches("[1-5]"));
+		
+		// split("regex") pravi niz pod-stringova, pri cemu regex sluzi kao separator
+	
+		String[] reci = recenica.split("\s"); // ovde recenicu delimo na niz reci tako sto nam je razmak regex
+		
+		System.out.println("Stampamo niz posle splitovanja: ");
+		
+		for(String rec : reci) {
+			System.out.println(rec);
+		}
+		
+		// replaceFirst("regex", "String zamena") - menja prvi nadjeni regex sa zamenom
+		
+		System.out.println(recenica.replaceFirst("^Mo", "Mozda i ne mo"));
+		
+		// replaceAll("regex", "String zamena") - menja sve nadjene regexe sa zamenom
+		
+		System.out.println(recenica.replaceAll("[aeiou]", "o"));
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+}

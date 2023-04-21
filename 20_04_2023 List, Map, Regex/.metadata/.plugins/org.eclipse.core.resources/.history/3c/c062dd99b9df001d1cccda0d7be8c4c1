@@ -1,0 +1,51 @@
+package djuric;
+
+/*
+ * Lista u Javi je interfejs (koji nasledjuje interfejs Kolekcije),
+ * koji omogucava pravljenje sekvencijalnih kolekcija elemenata,
+ * pri cemu svaki element ima indeks na osnovu koga mu se moze pristupiti. 
+ * List interfejs dozvoljava, izmedju ostalog, ubacivanje, uklanjanje,
+ * promenu i pristup elementima na osnovu njihovog indeksa.
+ * 
+ */
+
+import java.util.*;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		/*
+		 * List interfejs implementiraju razlicite klase u Javi.
+		 * Najcesce se koriste ArrayList, LinkedList, Vector
+		 * i Stack. Svaka od ovih klasa ima razlicite karakteristike,
+		 * ali (pored njima svojstvenih specificnih metoda),
+		 * sve implementiraju iste metode iz List interfejsa.
+		 */
+		
+		List<String> arrayList = new ArrayList<String>();
+		
+		arrayList.add("Fender");
+		arrayList.add("Gibson");
+		arrayList.add("Vox");
+		arrayList.add("Ibanez");
+		arrayList.add(1, "Squier");
+		
+		System.out.println(arrayList);
+		
+		arrayList.remove(0);
+		arrayList.remove("Vox");
+		
+		System.out.println(arrayList);
+		
+		// LinkedList je povezana lista. 
+
+		
+		List<String> linkedList = new LinkedList<String>();
+		List<String> vector = new Vector<String>();
+		List<String> stack = new Stack<String>();
+		
+
+	}
+
+}

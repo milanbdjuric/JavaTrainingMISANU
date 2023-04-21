@@ -1,0 +1,147 @@
+package djuric;
+
+/*
+ * Lista u Javi je interfejs (koji nasledjuje interfejs Kolekcije),
+ * koji omogucava pravljenje sekvencijalnih kolekcija elemenata,
+ * pri cemu svaki element ima indeks na osnovu koga mu se moze pristupiti. 
+ * List interfejs dozvoljava, izmedju ostalog, ubacivanje, uklanjanje,
+ * promenu i pristup elementima na osnovu njihovog indeksa.
+ * 
+ */
+
+import java.util.*;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		/*
+		 * List interfejs implementiraju razlicite klase u Javi.
+		 * Najcesce se koriste ArrayList, LinkedList, Vector
+		 * i Stack. Svaka od ovih klasa ima razlicite karakteristike,
+		 * ali (pored njima svojstvenih specificnih metoda),
+		 * sve implementiraju iste metode iz List interfejsa.
+		 */
+		
+		// pravimo listu:
+		
+		List<String> gitare = new ArrayList<String>();
+		
+		System.out.println("Izgled liste: " + gitare);
+		
+		// Najcesce metode interfejsa List
+		
+		// add() za dodavanje elemenata u listu:
+		
+		gitare.add("Fender");
+		gitare.add("Gibson");
+		gitare.add("Vox");
+		gitare.add("Ibanez");
+		gitare.add(1, "Squier"); // dodajemo na poziciju (indeks); broji se od nule
+		
+		System.out.println("Izgled liste posle dodavanja: " + gitare);
+		
+		// remove() za uklanjanje 
+		
+		gitare.remove(0); // uklanjane na osnovu indeksa
+		gitare.remove("Vox"); // uklanjanje na osnovu vrednosti
+		
+		System.out.println("Izgled liste posle uklanjanja: " + gitare);
+		
+		// get() za vracanje vrednosti na odredjenom indeksu
+		
+		System.out.println("Na poziciji sa indeksom 2 je: " + gitare.get(2));
+		
+		// size() za vracanje broja elemenata u listi:
+		
+		System.out.println("Broj elemenata u listi: " + gitare.size());
+		
+		// Za iteriranje kroz elemente lista koristi se objekat Iterator
+		
+		Iterator<String> iterator = gitare.iterator();
+		
+		System.out.print("Izgled liste iteriran iteratorom: ");
+		
+		while(iterator.hasNext()) {
+			System.out.print(iterator.next() + " ");
+		}
+		
+		System.out.println();
+		
+		// ListIterator je podvrsta iteratora kojim moze i unazad da se iterira
+		
+		ListIterator<String> listIterator = gitare.listIterator();
+		
+		System.out.print("Izgled liste iteriran ListIteratorom unazad: ");
+		
+		while(listIterator.hasPrevious()) {
+			System.out.print(listIterator.previous() + " ");
+		}
+		
+		System.out.println();
+		
+		
+		
+		
+		
+		/*
+		 * Vector je, kao i ArrayList, dinamicka lista, tj. velicina joj se
+		 * moze menjati u toku izvrsavanja programa. Glavna razlika izmedju
+		 * Vektora i ArrayListe je u tome sto je Vector sinhronizovana klasa,
+		 * sto znaci da se operacije nad Vektorom mogu izvrsavati paralelno u
+		 * razlicitim nitima. Samim tim je bezbedna za rad u visenitnom
+		 * (multi-thread) okruzenju. Kreiranje je slicno kao i kod ArrayListe,
+		 * s tim sto moze da se navede i pocetna lista i inkrement kojim ce se lista
+		 * uvecavati kad se dostigne maksimalna velicina.
+		 */
+		
+		List<String> linkedList = new LinkedList<String>();
+		
+		/*
+		 * Vector je, kao i ArrayList, dinamicka lista, tj. velicina joj se
+		 * moze menjati u toku izvrsavanja programa. Glavna razlika izmedju
+		 * Vektora i ArrayListe je u tome sto je Vector sinhronizovana klasa,
+		 * sto znaci da se operacije nad Vektorom mogu izvrsavati paralelno u
+		 * razlicitim nitima. Samim tim je bezbedna za rad u visenitnom
+		 * (multi-thread) okruzenju. Kreiranje je slicno kao i kod ArrayListe,
+		 * s tim sto moze da se navede i pocetna lista i inkrement kojim ce se lista
+		 * uvecavati kad se dostigne maksimalna velicina.
+		 */
+				
+		Vector<String> sintovi = new Vector<String>();
+		
+		sintovi.add("Roland");
+		sintovi.insertElementAt("Kurac", 0);
+		
+		System.out.println(sintovi);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		List<String> stack = new Stack<String>();
+		
+
+	}
+
+}

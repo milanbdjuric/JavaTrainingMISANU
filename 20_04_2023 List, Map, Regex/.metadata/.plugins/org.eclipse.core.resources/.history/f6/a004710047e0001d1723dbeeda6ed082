@@ -1,0 +1,33 @@
+package djuric;
+
+/*
+ * Regularni izrazi (regular expressions) ili regex su posebne sintakse koje sluze
+ * za pretragu ili/i manipulaciju tekstom tj. stringovima, na osnovu odredjenih kriterijuma. 
+ * Sastoje se od regularnih karaktera koji predstavljaju tekst koji se trazi, kao i
+ * od specijalnih karaktera koji predstavljaju razlicite obrasce (patterns). Regex nema
+ * posebnu klasu, i da bi se radilo s njim uvodi se java.util.regex paket
+ */
+
+import java.util.regex.*;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		// postoje dve klase koje podrzavaju regex - Pattern i Matcher i rade zajedno
+		
+		Pattern pat = Pattern.compile("nesto"); // obrazac koji trazimo...
+		
+		Matcher mat = pat.matcher("Da vidimo da li nesto ima u ovom tekstu."); // ... i gde ga trazimo
+		
+		if(mat.find()) { // - find je boolean metoda Matchera, vraca true ako je nadjen patern
+			System.out.println("Obrazac `" + pat.toString() + "` je nadjen u tekstu.");
+		}
+		else
+			System.out.println("Obrazac `" + pat.toString() + "` nije pronadjen u tekstu.");
+		
+		
+
+	}
+
+}

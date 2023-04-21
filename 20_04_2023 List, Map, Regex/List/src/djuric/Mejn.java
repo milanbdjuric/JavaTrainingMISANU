@@ -1,0 +1,182 @@
+package djuric;
+
+/*
+ * Lista u Javi je interfejs (koji nasledjuje interfejs Kolekcije),
+ * koji omogucava pravljenje sekvencijalnih kolekcija elemenata,
+ * pri cemu svaki element ima indeks na osnovu koga mu se moze pristupiti. 
+ * List interfejs dozvoljava, izmedju ostalog, ubacivanje, uklanjanje,
+ * promenu i pristup elementima na osnovu njihovog indeksa.
+ * 
+ */
+
+import java.util.*;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		/*
+		 * List interfejs implementiraju razlicite klase u Javi.
+		 * Najcesce se koriste ArrayList, LinkedList, Vector
+		 * i Stack. Svaka od ovih klasa ima razlicite karakteristike,
+		 * ali (pored njima svojstvenih specificnih metoda),
+		 * sve implementiraju iste metode iz List interfejsa.
+		 */
+		
+		// pravimo listu:
+		
+		List<String> gitare = new ArrayList<String>();
+		
+		System.out.println("Izgled liste: " + gitare);		
+		
+		
+		// NAJCESCE METODE LIST INTERFEJSA:
+
+		
+		// add() za dodavanje elemenata u listu:
+		
+		gitare.add("Fender");
+		gitare.add("Gibson");
+		gitare.add("Vox");
+		gitare.add("Ibanez");
+		gitare.add(1, "Squier"); // dodajemo na poziciju (indeks); broji se od nule
+		
+		System.out.println("Izgled liste posle dodavanja: " + gitare);
+		
+		// remove() za uklanjanje 
+		
+		gitare.remove(0); // uklanjane na osnovu indeksa
+		gitare.remove("Vox"); // uklanjanje na osnovu vrednosti
+		
+		System.out.println("Izgled liste posle uklanjanja: " + gitare);
+		
+		// get() za vracanje vrednosti na odredjenom indeksu
+		
+		System.out.println("Na poziciji sa indeksom 2 je: " + gitare.get(2));
+		
+		// size() za vracanje broja elemenata u listi:
+		
+		System.out.println("Broj elemenata u listi: " + gitare.size());
+		
+		// clear() je metoda za brisanje liste
+		// equals(Object x) je boolean metoda za poredjenje clanova niza
+		// indexOf(Object x) je metoda za vracanje indeksa
+		//itd.
+
+		// Za iteriranje kroz elemente lista koristi se objekat Iterator
+		
+		Iterator<String> iterator = gitare.iterator();
+		
+		System.out.print("Izgled liste iteriran Iteratorom: ");
+		
+		while(iterator.hasNext()) {
+			System.out.print(iterator.next() + " ");
+		}
+		
+		System.out.println();
+		
+		// ListIterator je podvrsta iteratora kojim moze i unazad da se iterira
+		
+		ListIterator<String> listIterator = gitare.listIterator();
+		
+		System.out.print("Izgled liste iteriran ListIteratorom unapred pa unazad: ");
+		
+		while(listIterator.hasNext()) {
+			System.out.print(listIterator.next() + " ");
+		}
+		
+		while(listIterator.hasPrevious()) {
+			System.out.print(listIterator.previous() + " ");
+		}
+		
+		System.out.println();
+		
+		// subList vraca vrednosti od-do (indeksa)
+		
+		System.out.println("subList primer: " + gitare.subList(1, 3));		
+	
+		
+		
+		// NAJVISE UPOTREBLJAVANE KLASE KOJE IMPLEMENTIRAJU LIST INTERFEJS:
+		
+		
+		/*
+		 * Dok ArrayList (koji smo upravo videli) skladisti elemente u kontinuiranom nizu u memoriji,
+		 * LinkedList (povezana lista) ih skladisti na raznim mestima,
+		 * i svaki element ima svoju vrednost, kao i adresu narednog clana.
+		 * Inace se s njim slicno postupa kao i sa ArrayList-om
+		 */
+		
+		LinkedList<String> mikrofoni = new LinkedList<String>();
+		
+		// ima neke metode koje nema ArrayList, na primer:
+		
+		mikrofoni.add("Neumann");
+		mikrofoni.add("Audio Technica");
+		
+		System.out.println("Izgled LinkedListe: " + mikrofoni);
+		
+		mikrofoni.addFirst("AKG"); // addFirst() stavlja element na pocetak liste
+		
+		System.out.println("Izgled LinkedListe: " + mikrofoni);
+		
+		mikrofoni.addLast("Oktava"); // addLast() stavlja element na kraj liste
+		
+		System.out.println("Izgled LinkedListe: " + mikrofoni);
+		
+		System.out.println("Prvi element u listi je: " + mikrofoni.getFirst()); // -||- samo dohvata
+		
+		System.out.println("Poslednji element u listi je: " + mikrofoni.getLast());
+		
+		/*
+		 * Vector je, kao i ArrayList, dinamicka lista, tj. velicina joj se
+		 * moze menjati u toku izvrsavanja programa. Glavna razlika izmedju
+		 * Vektora i ArrayListe je u tome sto je Vector sinhronizovana klasa,
+		 * sto znaci da se operacije nad Vektorom mogu izvrsavati paralelno u
+		 * razlicitim nitima. Samim tim je bezbedna za rad u visenitnom
+		 * (multi-thread) okruzenju. Kreiranje je slicno kao i kod ArrayListe,
+		 * s tim sto moze da se navede i pocetna lista i inkrement kojim ce se lista
+		 * uvecavati kad se dostigne maksimalna velicina.
+		 */
+				
+		Vector<String> bubnjevi = new Vector<String>();
+		
+		// njemu specificne metode su, npr:
+		
+		bubnjevi.add("Kontra");
+		
+		bubnjevi.add(0, "Rajd"); // (ova dva su naslednjena od List interfejsa)
+		
+		bubnjevi.addElement("Bas"); // slicno kao add(), samo sinhronizovano, thread-safe
+		
+		bubnjevi.insertElementAt("Dobos", 0); // ubacuje element na indeks, ali thread-safe
+		
+		bubnjevi.ensureCapacity(10); // povecava kapacitet vektora do zadatog integera
+		
+		System.out.println("Izgled vektora: " + bubnjevi);
+		
+		/*
+		 * Stack klasa predstavlja kolekciju koja radi po "Last In - First Out" principu (LIFO).
+		 * Nasledjuje Vector klasu, dakle sve njene metode i karakteristike, s tim da
+		 * ima tri svoje glavne metode za dodavanje i uklanjanje elemenata: push(), pop() i peek().
+		 */		
+		
+		Stack<String> sintovi = new Stack<String>();
+		
+		sintovi.add("Roland"); 
+		sintovi.add("Moog");
+		
+		sintovi.push("Oberheim"); // metoda push() dodaje element na vrh stack-a 
+		
+		System.out.println("Izgled Stack-a: " + sintovi);
+		
+		System.out.println(sintovi.pop()); // metoda pop() vraca vrh stack-a i uklanja ga
+		
+		System.out.println("Izgled Stack-a: " + sintovi);
+		
+		System.out.println(sintovi.peek()); // metoda peek() vraca vrh stack-a ali ga ne uklanja
+		
+		System.out.println("Izgled Stack-a: " + sintovi);
+	
+	}
+}

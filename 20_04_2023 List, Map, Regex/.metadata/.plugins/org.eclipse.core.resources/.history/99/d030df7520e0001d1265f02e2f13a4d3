@@ -1,0 +1,75 @@
+package djuric;
+
+import java.util.*;
+
+/*
+ * Map u Javi predstavlja interfejs koji omogucava rad sa kolekcijom parova
+ * "kljuc-vrednost" (key-value pairs). Ovakva kolekcija predstavlja strukturu
+ * podataka koja se naziva mapa, u kojoj se svakom kljucu pridruzije odgovarajuca
+ * unikatna vrednost.
+ * 
+ * Mapa ne moze da sadrzi duplikate kljuceva, i svaki kljuc je jedinstven i moze
+ * da mapira samo jednu vrednost. Ukoliko probamo da dodamo novu vrednost na
+ * postojeci kljuc - to ce zameniti staru vrednost.
+ * 
+ * U interfejsu Maps vrednosti mogu biti duplikati - vise kljuceva moze imati
+ * istu vrednost. 
+ * 
+ * Interfejs Maps ima tri razlicita seta - set kljuceva, set vrednosti i set
+ * kljuc-vrednost asocijacija (mapping). Mozemo individualno pristupiti svakom od
+ * ova tri seta u interfejsu.
+ */
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		/*
+		 * Postoje dva interfejsa koja implementiraju mape u Javi:
+		 * to su Map i SortedMap, kao i tri klase: HashMap, TreeMap
+		 * i LinkedHashMap.
+		 */
+				
+		Map<String, String> recnik = new HashMap<>();
+		
+		// NAJCESCE METODE MAP INTERFEJSA:
+		
+		// put(Object key, Object value) - povezuje kljuc i vrednost
+		
+		recnik.put("Pas", "Pas (lat. Canis lupus familiaris) je pripitomljeni sisar iz porodice Canidae. "); 
+		recnik.put("Lav", "Lav (lat. Panthera Leo) je sisar, mesojed i grabljivac iz porodice mačaka (Felidae). ");
+		recnik.put("Konj", "Konj (lat. Equus ferus caballus) je jedna od dve podvrste Equus ferus, tj. divljeg konja. ");
+		
+		// get(Object key) - metoda za dobijanje vrednosti na osnovu kljuca
+		
+		System.out.println(recnik.get("Lav"));
+		
+		// containsKey(Object key) - proverava da li mapa sadrzi dati kljuc
+		
+		System.out.println("Da li imamo konja u recniku? " + recnik.containsKey("Konj"));
+		
+		// containsValue(Object value) - proverava da li mapa sadrzi datu vrednost
+		
+		System.out.println("Da li imamo sledecu odrednicu u recniku: " + recnik.containsValue("Medved (lat. Ursus) je sisar iz reda zveri (Carnivora)."));
+		
+		// size() - dobija broj parova key-value u mapi
+		
+		System.out.println("Koliko odrednica imamo u recniku? " + recnik.size());
+		
+		// remove(Object key) - za uklanjanje para key-value za dati kljuc
+		
+		recnik.remove("Konj");
+		
+		System.out.println("Brisemo konja!\nKoliko odrednica imamo u recniku? " + recnik.size());
+		
+		// keySet() - vraca set svih key-value veza u mapi
+		
+		System.out.println(recnik.keySet());
+		
+		// entrySet() - vraca set svih key-value veza u mapi
+		
+		System.out.println(recnik.entrySet());
+
+	}
+
+}

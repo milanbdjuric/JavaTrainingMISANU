@@ -1,0 +1,126 @@
+package djuric;
+
+import java.util.*;
+
+/*
+ * Map u Javi predstavlja interfejs koji omogucava rad sa kolekcijom parova
+ * "kljuc-vrednost" (key-value pairs). Ovakva kolekcija predstavlja strukturu
+ * podataka koja se naziva mapa, u kojoj se svakom kljucu pridruzije odgovarajuca
+ * unikatna vrednost.
+ * 
+ * Mapa ne moze da sadrzi duplikate kljuceva, i svaki kljuc je jedinstven i moze
+ * da mapira samo jednu vrednost. Ukoliko probamo da dodamo novu vrednost na
+ * postojeci kljuc - to ce zameniti staru vrednost.
+ * 
+ * U interfejsu Maps vrednosti mogu biti duplikati - vise kljuceva moze imati
+ * istu vrednost. 
+ * 
+ * Interfejs Maps ima tri razlicita seta - set kljuceva, set vrednosti i set
+ * kljuc-vrednost asocijacija (mapping). Mozemo individualno pristupiti svakom od
+ * ova tri seta u interfejsu.
+ */
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		/*
+		 * Postoje dva interfejsa koja implementiraju mape u Javi:
+		 * to su Map i SortedMap, kao i tri klase: HashMap, TreeMap
+		 * i LinkedHashMap.
+		 */
+		
+		// Najpre kreiramo objekat klase HashMap kao primer. HashMap skladisti elemente bez odredjenog redosleda,
+		// i ne obazire se na redosled dodavanja elemenata.
+				
+		Map<String, String> recnik = new HashMap<>();
+		
+		// NAJCESCE METODE MAP INTERFEJSA:
+		
+		// put(Object key, Object value) - povezuje kljuc i vrednost
+		
+		recnik.put("Pas", "Pas (lat. Canis lupus familiaris) je pripitomljeni sisar iz porodice Canidae. "); 
+		recnik.put("Lav", "Lav (lat. Panthera Leo) je sisar, mesojed i grabljivac iz porodice mačaka (Felidae). ");
+		recnik.put("Konj", "Konj (lat. Equus ferus caballus) je jedna od dve podvrste Equus ferus, tj. divljeg konja. ");
+		
+		// get(Object key) - metoda za dobijanje vrednosti na osnovu kljuca
+		
+		System.out.println(recnik.get("Lav"));
+		
+		// containsKey(Object key) - proverava da li mapa sadrzi dati kljuc
+		
+		System.out.println("Da li imamo konja u recniku? " + recnik.containsKey("Konj"));
+		
+		// containsValue(Object value) - proverava da li mapa sadrzi datu vrednost
+		
+		System.out.println("Da li imamo sledecu odrednicu u recniku: " + recnik.containsValue("Medved (lat. Ursus) je sisar iz reda zveri (Carnivora)."));
+		
+		// size() - dobija broj parova key-value u mapi
+		
+		System.out.println("Koliko odrednica imamo u recniku? " + recnik.size());
+		
+		// remove(Object key) - za uklanjanje para key-value za dati kljuc
+		
+		recnik.remove("Konj");
+		
+		System.out.println("Brisemo konja!\nKoliko odrednica imamo u recniku? " + recnik.size());
+		
+		// keySet() - vraca set svih kljuceva u mapi
+		
+		System.out.println(recnik.keySet());
+		
+		// values() - vraca set svih vrednosti u mapi
+		
+		System.out.println(recnik.values());
+		
+		// entrySet() - vraca set svih key-value veza u mapi
+		
+		System.out.println(recnik.entrySet());
+		
+		// replace(Object key, Object value) - menja vrednost na zadatom kljucu
+		
+		recnik.replace("Pas", "Av av av! ");
+		System.out.println(recnik.values());
+		
+		// clear() - brise sve kljuc-vrednost veze, tj. prazni mapu
+		
+		recnik.clear();
+		
+		/*
+		 * LinkedHashMap je klasa koja implementira interfejs Map i od HashMap-a se razlikuje po tome sto se obazire na
+		 * redosled dodavanja elemenata. To znaci da su elementi u ovoj mapi poredjani po redosledu po kojem se dodaju.
+		 * Dakle, LinkedHashMap se koristi kad je bitan redosled umetanja elemenata.
+		 */
+		
+		Map<Integer, String> brojevi = new LinkedHashMap<>();
+		
+		brojevi.put(1, "jedan");
+		brojevi.put(2, "dva");
+		brojevi.put(5, "pet");
+		brojevi.put(3, "tri");
+		brojevi.put(4, "cetiri");
+		
+		System.out.print("LinkedHashMap redosled: ");
+		
+		for(Integer key : brojevi.keySet()) {          // kroz mape mozemo iterirati for:each petljom
+			System.out.print(brojevi.get(key) + " ");  
+		}
+		
+		System.out.println();
+		
+		/*
+		 * TreeMap je klasa koja implementira interfejs Map i takodje cuva podatke u key-value parovima, ali
+		 * ih sortira po kljucu - po abecednom redu, numerickom redosledu i sl.
+		 */
+		
+		Map<Integer, String> brojeviTree = new TreeMap<>();
+		
+		brojeviTree.putAll(brojevi); // metoda za prenos celokupne mape, iz jedne u drugu
+		
+		System.out.print("TreeMap redosled: ");
+		
+		for(Map.Entry<Integer, String> mapa : brojeviTree.entrySet()) {  // moguce je iterirati i preko key-value seta
+			System.out.print(mapa.getKey() + "=" + mapa.getValue() + " ");
+		}
+	}
+}
