@@ -1,0 +1,20 @@
+package praksa;
+
+public class Character extends FileHelper{
+
+	private String name, allegiance, txtfile;
+	
+	Character(String n, String a, String t){
+		name = n;
+		allegiance = a;
+		txtfile = t;
+	}
+	
+	public String getTxtfile() {
+		return txtfile;
+	}
+	
+	public void printMessages() {
+		System.out.println(loadMessages(txtfile));
+	}
+}

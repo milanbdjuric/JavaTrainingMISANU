@@ -1,0 +1,11 @@
+package praksa;
+
+public class PodaciOOsobama extends FileHelper{
+	
+	private static final String IME = "^(.*?),";
+	
+	public String getIme() {
+		return IME;
+	}
+
+}

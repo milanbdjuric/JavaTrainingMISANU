@@ -1,0 +1,55 @@
+package praksa;
+
+import java.util.*;
+
+public class Character extends FileHelper{
+	
+	private String name, allegiance, messagesFile;
+	
+	Character(String name, String allegiance, String messagesFile){
+		this.name = name;
+		this.allegiance = allegiance;
+		this.messagesFile = messagesFile;
+ 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAllegiance() {
+		return allegiance;
+	}
+
+	public String getMessagesFile() {
+		return messagesFile;
+	}
+	
+	public static List<Character> characters(){
+		List<Character> characters = new ArrayList<>();
+		String metaData = FileHelper.loadMetaData();
+		String[] lines = metaData.split("\\r?\\n");
+		
+		for(String line : lines) {
+			String[] strings = line.split(",");
+			String name = strings[0].trim();
+			String allegiance = strings[1].trim();
+			String messagesFile = strings[2].trim();
+			Character character = new Character(name, allegiance, messagesFile);
+			characters.add(character);
+		}
+		return characters;
+	}
+	
+	public static void printAllCharacters() {
+		
+		for(Character c : characters()) {
+			System.out.println("NAME: " + c.getName() + ", ALLEGIANCE: " + c.getAllegiance() + ", TXT: " + c.getMessagesFile());
+		}
+		
+		
+		
+	}
+
+
+
+}

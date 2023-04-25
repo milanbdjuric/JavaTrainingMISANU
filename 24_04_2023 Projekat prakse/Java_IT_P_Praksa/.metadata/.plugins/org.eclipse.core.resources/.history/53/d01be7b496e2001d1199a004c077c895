@@ -1,0 +1,9 @@
+package praksa;
+
+public class Osoba extends PodaciOOsobama {
+	
+	Osoba(String ime){
+		name = getIme();
+	}
+
+}

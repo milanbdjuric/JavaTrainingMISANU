@@ -1,0 +1,44 @@
+package praksa;
+
+public class Character {
+	
+	private int happySmileys, sadSmileys;
+	
+	private String name, allegiance, messagesFile;
+	
+	Character(){}
+	
+	Character(String name, String allegiance, String messagesFile){
+		this.name = name;
+		this.allegiance = allegiance;
+		this.messagesFile = messagesFile;
+ 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAllegiance() {
+		return allegiance;
+	}
+
+	public String getMessagesFile() {
+		return messagesFile;
+	}
+	
+	public int dispozicija(int happy, int sad) {
+		return happy - sad;
+	}
+
+	public void setHappySmileys(int happySmileys) {
+		this.happySmileys = happySmileys;
+	}
+
+	public void setSadSmileys(int sadSmileys) {
+		this.sadSmileys = sadSmileys;
+	}
+	
+	public int dispozicija() {
+		return happySmileys - sadSmileys;
+	}
+}

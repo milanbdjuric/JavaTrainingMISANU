@@ -1,0 +1,5 @@
+CHARACTER, ALLEGIANCE, MESSAGES_FILE
+Daenerys Stormborn, House Targaryen, messages82387561293.txt
+Jon Snow, House Stark, messages2094721612573.txt
+Tyrion Lannister, House Lannister, messages9287658288370.txt
+Cersei Lannister, House Lannister, messages22274950573636.txt

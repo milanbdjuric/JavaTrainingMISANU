@@ -1,0 +1,32 @@
+package praksa;
+
+import java.util.*;
+
+public class CharacterList {
+	
+	private List<Character> characters;
+	
+	CharacterList(){
+		characters = new ArrayList<>();
+		loadCharacters();
+	}
+	
+	private void loadCharacters() {
+		String metaData = FileHelper.loadMetaData();
+		String[] lines = metaData.split("(?<=\n)(?!$)");
+		
+		for(String line : lines) {
+			String[] strings = line.split(",");
+			String name = strings[0].trim();
+			String allegiance = strings[1].trim();
+			String messagesFile = strings[2].trim();
+			Character character = new Character(name, allegiance, messagesFile);
+			characters.add(character);
+		}
+	}
+	
+	private List<Character> getCharacters(){
+		return characters;
+	}
+
+}

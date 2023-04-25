@@ -1,0 +1,22 @@
+package praksa;
+
+public class Karakter {
+	
+	private String name;
+	private String alleignance;
+	private int brojPoslatihPoruka;
+	
+	Karakter(String name, String alleignance){
+		this.name = name;
+		this.alleignance = alleignance;
+		
+	}
+
+	public char[] loadMessages(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+
+}

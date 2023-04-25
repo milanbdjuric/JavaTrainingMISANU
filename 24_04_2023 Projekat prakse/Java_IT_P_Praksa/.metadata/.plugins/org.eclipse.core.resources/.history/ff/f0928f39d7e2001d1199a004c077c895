@@ -1,0 +1,17 @@
+package praksa;
+
+public class Messages {
+	
+	Character character;
+	
+	int happySmileys, sadSmileys;
+	
+	Messages(Character character, int happySmileys, int sadSmileys){
+		this.character = character;
+		this.happySmileys = happySmileys;
+		this.sadSmileys = sadSmileys;		
+	}
+	
+	
+
+}

@@ -1,0 +1,136 @@
+package praksa;
+
+import java.util.*;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+	
+		List<Character> characters = new ArrayList<>();
+		
+		String metadata = FileHelper.loadMetaData();
+		
+		String[] lines = metadata.split(System.lineSeparator());
+		
+		for(int i = 1; i < lines.length; i++) {
+			
+			String[] string = lines[i].split(",");
+			
+			String name = string[0].trim();
+			String allegiance = string[1].trim();
+			String messagesFile = string[2].trim();
+			
+			Character character = new Character(name, allegiance, messagesFile);
+			characters.add(character);
+		}
+		
+		System.out.println("All Daenerys` meggases:\n");
+		
+		for(Character c : characters) {
+			if(c.getName().contains("Daenerys")) {
+				for(int i = 1; i < FileHelper.loadMessages(c.getMessagesFile()).size(); i++)
+					System.out.print(FileHelper.loadMessages(c.getMessagesFile()).get(i) + "\n");
+			}
+		}
+		
+		System.out.println();
+
+		for(Character c : characters) {
+			int msgCounter = 0;
+			for(int i = 1; i < FileHelper.loadMessages(c.getMessagesFile()).size(); i++) {
+				msgCounter++;
+			}
+			
+			System.out.println(c.getName() + " had " + msgCounter + " messages.");
+		}
+		
+		System.out.println();
+		
+		for(Character c : characters) {			
+			int happyCounter = 0;
+			int sadCounter = 0;
+			int loveJonCounter = 0;
+			int loveDaenerysCounter = 0;
+			
+			for(String str : FileHelper.loadMessages(c.getMessagesFile())) {
+
+				if(str.contains("😄")||str.contains("😊")||str.contains("🙂")||str.contains("😍"))
+					happyCounter++;				
+				
+				if(str.contains("😢")||str.contains("😭")||str.contains("👿")||str.contains("😞"))
+					sadCounter++;				
+		
+				if((str.contains("😘")||str.contains("😍"))&&str.matches("^Jon"))
+					loveJonCounter++;
+				
+				if((str.contains("😘")||str.contains("😍"))&&str.matches("^Daenerys"))
+					loveDaenerysCounter++;
+			}
+			
+			c.setHappySmileys(happyCounter);
+			c.setSadSmileys(sadCounter);
+			c.setLoveDaenerysSmileys(loveDaenerysCounter);
+			c.setLoveJonSmileys(loveJonCounter);
+			
+			if (c.disposition() > 0) 
+				System.out.println(c.getName() + " is more happy than sad.");
+			
+			else if (c.disposition() < 0)
+				System.out.println(c.getName() + " is more sad than happy.");
+			
+			else
+				System.out.println(c.getName() + " is equally sad and happy.");	
+		}
+		
+		Character happiest = new Character();
+		
+		Character saddest = new Character();
+		
+		int max = happiest.disposition();
+		
+		int min = saddest.disposition();
+		
+		for(Character c : characters) {
+			if (c.disposition() > max) {
+				max = c.disposition();
+				happiest = c;
+			}
+			
+			if (c.disposition() < min) {
+				min = c.disposition();
+				saddest = c;
+			}
+		}
+		
+		System.out.println("\nThe happiest character is: " + happiest.getName() + " of " + happiest.getAllegiance() + ".");
+		
+		System.out.println("The saddest character is: " + saddest.getName() + " of " + saddest.getAllegiance() + ".");
+		
+		int jonLovesDaenerys = 0;
+		int daenerysLovesJon = 0;
+		
+		for(int i = 0; i < characters.size(); i ++) {
+			if(characters.get(i).getName().contains("Jon")) {
+				jonLovesDaenerys = characters.get(i).getLoveDaenerysSmileys();
+			}
+			if(characters.get(i).getName().contains("Daenerys")) {
+				daenerysLovesJon = characters.get(i).getLoveJonSmileys();
+			}
+		}
+		
+		if(jonLovesDaenerys > daenerysLovesJon) {
+			System.out.println("\nJon loves Daenery more than Daenery loves Jon.");
+		}
+		else if(jonLovesDaenerys < daenerysLovesJon) {
+			System.out.println("\nDaenery loves Jon more than Jon loves Danenry.");
+		}
+		else
+			System.out.println("\nDaenery and Jon love each other equally.");
+		
+
+		
+		
+
+	}
+
+}
