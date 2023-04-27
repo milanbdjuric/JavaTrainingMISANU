@@ -1,0 +1,33 @@
+package praksa;
+
+public class EmojiMood {
+	
+	private String mood;
+
+	EmojiMood(Emoji emoji){
+		if(emoji.getEmoji().matches(".*[😄😊🙂😍].*"))
+			this.mood = "happy";
+		if(emoji.getEmoji().matches(".*[😢😭👿😞].*"))
+			this.mood = "sad";
+		if(emoji.getEmoji().matches(".*[😍😘].*"))
+			this.mood = "love";
+	}
+	
+	public String getMood() {
+		return mood;
+	}
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+	
+	
+}

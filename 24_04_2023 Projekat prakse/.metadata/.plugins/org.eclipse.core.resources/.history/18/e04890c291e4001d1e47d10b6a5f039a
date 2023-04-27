@@ -1,0 +1,25 @@
+package praksa;
+
+public class EmojiMood {
+	
+	private String happy, sad, love;
+	
+	EmojiMood(){
+	}
+	
+	public String getEmojiMood(Emoji e) {
+		if(e.name().contains("HAPPY"))
+			return "HAPPY";
+		else if(e.name().contains("SAD"))
+			return "SAD";
+		else
+			return"LOVE";
+		
+	}
+	
+
+	
+
+	
+	
+}

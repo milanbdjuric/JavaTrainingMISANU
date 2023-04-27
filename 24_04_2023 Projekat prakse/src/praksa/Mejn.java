@@ -1,130 +1,62 @@
 package praksa;
 
 import java.util.*;
-import java.util.regex.*;
 
 public class Mejn {
 
 	public static void main(String[] args) {
-	
-		List<Character> characters = new ArrayList<>();
 		
-		String metadata = FileHelper.loadMetaData();
+		List<Character> characters = CharacterHelper.importCharacters();
 		
-		String[] lines = metadata.split(System.lineSeparator());
+		Character daenerys = CharacterHelper.getCharacterByName("Daenerys");		
 		
-		for(int i = 1; i < lines.length; i++) {
-			
-			String[] string = lines[i].split(",");
-			
-			String name = string[0].trim();
-			String allegiance = string[1].trim();
-			String messagesFile = string[2].trim();
-			
-			Character character = new Character(name, allegiance, messagesFile);
-			characters.add(character);
-		}
+		Messages daenerysMessages = new Messages(daenerys);
 		
-		System.out.println("All Daenerys` meggases:\n");
-		
-		for(Character character : characters) {
-			if(character.getName().contains("Daenerys")) {
-				for(int i = 1; i < character.getMessageLines().size(); i++)
-					System.out.print(character.getMessageLines().get(i) + "\n");
-			}
-		}
-		
+		daenerysMessages.printMessages();
+				
 		System.out.println();
-
-		for(Character character : characters) {
-			int msgCounter = 0;
-			for(int i = 1; i < character.getMessageLines().size(); i++) {
-				if(character.getMessageLines().get(i).isBlank() || character.getMessageLines().get(i).isEmpty())
-					continue;
-				else
-					msgCounter++;
-			}
-			
-			System.out.println(character.getName() + " had " + msgCounter + " messages.");
-		}
-		
-		System.out.println();
-		
-		for(Character character : characters) {			
-			int happyCounter = 0;
-			int sadCounter = 0;
-			
-			for(String message : character.getMessageLines()) {
-
-				if(message.matches(".*[😄😊🙂😍].*"))
-					happyCounter++;				
 				
-				if(message.matches(".*[😢😭👿😞].*"))
-					sadCounter++;				
+		Character happiest = null;
+		int maxHappy = Integer.MIN_VALUE;
+		
+		Character saddest = null;
+		int maxSad = Integer.MAX_VALUE;
+		
+		for(Character character : characters) { 
+			
+			Messages messages = new Messages(character);
+			
+			int count = messages.countMessages();		
+			int happy = messages.countEmojis("happy");
+			int sad = messages.countEmojis("sad");
+			
+			int disposition = messages.happinessIndex();
+			String dispositionString = messages.disposition();
+			
+			System.out.println(character.getName() + " had " + count + " messages. " 
+			+ happy + " happy and " + sad + " sad emojis - " + dispositionString);
+			
+			if(disposition > maxHappy) {
+				happiest = character;
+				maxHappy = disposition;
 			}
 			
-			character.setHappySmileys(happyCounter);
-			character.setSadSmileys(sadCounter);
-			
-			if (character.disposition() > 0) 
-				System.out.println(character.getName() + " is more happy than sad.");
-			
-			else if (character.disposition() < 0)
-				System.out.println(character.getName() + " is more sad than happy.");
-			
-			else
-				System.out.println(character.getName() + " is equally sad and happy.");	
+			if(disposition < maxSad) {
+				saddest = character;
+				maxSad = disposition;
+			}	
 		}
 		
-		Character happiest = new Character();		
-		Character saddest = new Character();
+		System.out.println("\nThe happiest character is " + happiest.getName() 
+		+ " of " + happiest.getAllegiance() + ".");
 		
-		int max = happiest.disposition();
-		int min = saddest.disposition();
-		
-		for(Character c : characters) {
-			if (c.disposition() > max) {
-				max = c.disposition();
-				happiest = c;
-			}
+		System.out.println("The saddest character is " + saddest.getName() 
+		+ " of " + saddest.getAllegiance() + ".");
 			
-			if (c.disposition() < min) {
-				min = c.disposition();
-				saddest = c;
-			}
-		}
 		
-		System.out.println("\nThe happiest character is: " + happiest.getName() + " of " + happiest.getAllegiance() + ".");
-		
-		System.out.println("The saddest character is: " + saddest.getName() + " of " + saddest.getAllegiance() + ".");
-		
-		int jonLovesDanyCount = 0;
-		int danyLovesJonCount = 0;
-		
-		for(Character character : characters) {
-			
-			Pattern pattern = Pattern.compile("^Jon.*|^Daenerys.*");
-			
-			for(String message : character.getMessageLines()) {
+		Character jon = CharacterHelper.getCharacterByName("Jon");
+					
+		CharacterHelper.whoSentMoreEmojisToEachOther(daenerys, jon, "love");
 				
-				Matcher matcher = pattern.matcher(message);
-				
-				if(message.matches(".*[😍😘].*") && matcher.matches()) {				
-					if(character.getName().contains("Daenerys"))
-						danyLovesJonCount++;
-					if(character.getName().contains("Jon"))
-							jonLovesDanyCount++;	
-				}
-			}
-		}
-		
-		if(jonLovesDanyCount > danyLovesJonCount)
-			System.out.println("\nJon loves Daenerys more than Daenerys loves Jon.");
-		
-		else if(jonLovesDanyCount < danyLovesJonCount)
-			System.out.println("\nDaenerys loves Jon more than Jon loves Daenerys.");
-		
-		else
-			System.out.println("\nDaenerys and Jon love each other equally.");
 	}
 }

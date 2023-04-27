@@ -1,0 +1,56 @@
+package praksa;
+
+import java.util.List;
+
+public class Message {
+	
+	private Character sender, recipient;
+	
+	private String message;
+	
+	Message(String message, Character sender, Character recipient){
+		this.sender = sender;
+		this.recipient = recipient;
+		this.message = message;
+	}
+
+	public Character getSender() {
+		return sender;
+	}
+
+	public Character getRecipient() {
+		return recipient;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+	
+	public static void printAllMessagesFrom(Character character) {
+		System.out.println("All the messages from " + character.getName() + ":\n");
+		for(int i = 1; i < character.getMessageLines().size(); i++)
+			System.out.print(character.getMessageLines().get(i) + "\n");		
+		}
+	
+	public List<String> getMessagesFrom(Character character){
+		return FileHelper.loadMessages(character.getMessagesFile());
+	}
+	
+
+		
+		
+		
+		
+		
+	}
+
+	
+	
+
+		
+		
+		
+		
+	
+
+}

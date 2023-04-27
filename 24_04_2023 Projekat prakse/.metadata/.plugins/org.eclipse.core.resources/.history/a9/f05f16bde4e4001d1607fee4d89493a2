@@ -1,0 +1,34 @@
+package praksa;
+
+import java.util.Arrays;
+import java.util.List;
+
+public enum Emoji {
+	
+	INLOVE("😘", Arrays.asList("love")),
+	HAPPY1("😄", Arrays.asList("happy")),
+	HAPPY2("😄", Arrays.asList("happy")),
+	HAPPY3("🙂", Arrays.asList("happy")),
+	HAPPYINLOVE("😍", Arrays.asList("happy", "love")),
+	SAD1("😢", Arrays.asList("sad")),
+	SAD2("😭", Arrays.asList("sad")),
+	SAD3("👿", Arrays.asList("sad")),
+	SAD4("😞", Arrays.asList("sad"));
+
+	private final String emoji;
+	
+	private final List<String> moods;
+	
+	Emoji(String emoji, List<String> moods){
+		this.emoji = emoji;
+		this.moods = moods;
+	}
+	
+	public String getEmoji() {
+		return emoji;
+	}
+	
+	public List<String> getMoods(){
+		return moods;
+	}
+}

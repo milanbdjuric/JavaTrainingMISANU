@@ -1,0 +1,76 @@
+package praksa;
+
+import java.util.*;
+
+public class Messages {
+	
+	private List<String> messages;
+	
+	Character sender;
+	
+	Messages(Character sender){
+		this.sender = sender;
+		this.messages = FileHelper.loadMessages(sender.getMessagesFile());
+	}
+
+	public List<String> getMessages() {
+		return messages;
+	}
+	
+	public void printMessages() {
+		System.out.println(sender.getName() + "`s messages:\n");
+		for(int i = 1; i < messages.size(); i++) {
+			System.out.println(messages.get(i));
+		}
+	}
+	
+	public int countMessages() {
+		int msgCounter = 0;
+		for(int i = 1; i < messages.size(); i++) {
+			if(messages.get(i).isBlank() || messages.get(i).isEmpty())
+				continue;
+			else
+				msgCounter++;
+		}
+		return msgCounter;
+	}
+	
+	public int countHappySmileys() {	
+		int happyCounter = 0;
+		for(String message : messages) {
+			if(message.matches(".*[😄😊🙂😍].*"))
+				happyCounter++;				
+			}
+		return happyCounter;	
+	}
+	
+	public int countSadSmileys() {	
+		int sadCounter = 0;
+		for(String message : messages) {
+			if(message.matches(".*[😢😭👿😞].*"))
+				sadCounter++;				
+			}
+		return sadCounter;	
+	}
+	
+	public int countLoveSmileys() {	
+		int loveCounter = 0;
+		for(String message : messages) {
+			if(message.matches(".*[😍😘].*"))
+				loveCounter++;				
+			}
+		return loveCounter;	
+	}
+	
+	public String senderDisposition() {
+		if(countHappySmileys() - countSadSmileys() > 0)
+			return sender.getName() + " is more happy than sad. " + countHappySmileys() + " happy and " + countSadSmileys() + " sad emoticons.";
+		else if(countHappySmileys() - countSadSmileys() < 0)
+			return sender.getName() + " is more sad than happy";
+		else
+			return sender.getName() + " is equally happy and sad.";	
+	}
+	
+	
+
+}

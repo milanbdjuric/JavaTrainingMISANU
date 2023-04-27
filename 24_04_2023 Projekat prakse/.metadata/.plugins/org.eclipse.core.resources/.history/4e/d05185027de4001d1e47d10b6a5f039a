@@ -1,0 +1,95 @@
+package praksa;
+
+import java.util.*;
+
+import praksa.Character;
+
+public class Character {
+	
+	private int happySmileys, sadSmileys;
+	
+	private String name, allegiance, messagesFile;
+	
+	Character(){}
+	
+	Character(String name, String allegiance, String messagesFile){
+		this.name = name;
+		this.allegiance = allegiance;
+		this.messagesFile = messagesFile;
+ 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getAllegiance() {
+		return allegiance;
+	}
+
+	public String getMessagesFile() {
+		return messagesFile;
+	}
+
+	public void setHappySmileys(int happySmileys) {
+		this.happySmileys = happySmileys;
+	}
+
+	public void setSadSmileys(int sadSmileys) {
+		this.sadSmileys = sadSmileys;
+	}
+	
+	public int disposition() {
+		return happySmileys - sadSmileys;
+	}
+	
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public List<String> getMessageLines(){
+		return FileHelper.loadMessages(messagesFile);
+	}
+	
+	public static List<Character> importCharacters(){
+		
+		List<Character> characters = new ArrayList<>();		
+		String metadata = FileHelper.loadMetaData();
+		String[] lines = metadata.split(System.lineSeparator());
+		
+		for(int i = 1; i < lines.length; i++) {
+			
+			String[] string = lines[i].split(",");
+
+			String name = string[0].trim();
+			String allegiance = string[1].trim();
+			String messagesFile = string[2].trim();
+			
+			Character character = new Character(name, allegiance, messagesFile);
+			
+			characters.add(character);
+		}
+		return characters;
+	}
+	
+	public static Character getCharacterByName(String name) {
+		Character x = new Character();
+		for(Character character : importCharacters()) {
+			if(character.getName().equals(name))
+				x = character;
+		}
+		return x;		
+	}
+}

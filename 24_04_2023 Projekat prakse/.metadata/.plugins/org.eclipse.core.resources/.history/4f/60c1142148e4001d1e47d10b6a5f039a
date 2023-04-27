@@ -1,0 +1,39 @@
+package praksa;
+
+import java.util.List;
+
+public class Message {
+	
+	private Character sender, recipient;
+	
+	private String message;
+	
+	Message(String message, Character sender, Character recipient){
+		this.sender = sender;
+		this.recipient = recipient;
+		this.message = message;
+	}
+
+	public Character getSender() {
+		return sender;
+	}
+
+	public Character getRecipient() {
+		return recipient;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+	
+
+	
+	
+
+		
+		
+		
+		
+	
+
+}

@@ -1,0 +1,24 @@
+package praksa;
+
+public enum Emoji {
+	
+	INLOVE("😘"),
+	HAPPY1("😄"),
+	HAPPY2("😄"),
+	HAPPY3("🙂"),
+	HAPPYINLOVE("😍"),
+	SAD1("😢"),
+	SAD2("😭"),
+	SAD3("👿"),
+	SAD4("😞");
+
+	private final String emoji;
+	
+	Emoji(String emoji){
+		this.emoji = emoji;
+	}
+	
+	public String getEmoji() {
+		return emoji;
+	}
+}

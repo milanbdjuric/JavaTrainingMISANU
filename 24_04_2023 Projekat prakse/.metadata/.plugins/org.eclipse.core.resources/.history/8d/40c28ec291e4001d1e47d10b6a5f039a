@@ -1,0 +1,41 @@
+package praksa;
+
+import java.util.*;
+
+public enum Emoji {
+	
+	LOVE("😘"),
+	HAPPY1("😄"),
+	HAPPY2("😄"),
+	HAPPY3("🙂"),
+	HAPPYLOVE("😍"),
+	SAD1("😢"),
+	SAD2("😭"),
+	SAD3("👿"),
+	SAD4("😞");
+
+	private final String emoji;
+	
+	private static EmojiMood mood;
+	
+	Emoji(String emoji){
+		this.emoji = emoji;
+	}
+	
+	public String getEmoji() {
+		return emoji;
+	}
+	
+	public EmojiMood getMood() {
+		return mood;
+	}
+
+
+	
+	
+//	😄, 😊, 🙂, 😍, 😢, 😭, 👿, 😞
+	
+
+	
+
+}

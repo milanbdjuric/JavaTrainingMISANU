@@ -1,0 +1,127 @@
+package praksa;
+
+import java.util.*;
+import java.util.regex.*;
+
+public class Message {
+	
+	private Character sender, recipient;
+	
+	private String message;
+	
+	Message(String message, Character sender, Character recipient){
+		this.sender = sender;
+		this.recipient = recipient;
+		this.message = message;
+	}
+
+	public Character getSender() {
+		return sender;
+	}
+
+	public Character getRecipient() {
+		return recipient;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+	
+	public static List<Message> messagesFromTo(Character x, Character y){
+		List<Message> messages = new ArrayList<>();
+		for(String messageText : FileHelper.loadMessages(x.getMessagesFile())) {
+			if(messageText.contains(y.getName())) {
+				Message m = new Message(messageText, x, y);
+				messages.add(m);
+			}
+		}
+		return messages;	
+	}
+	
+	public static List<Message> messagesFrom(Character x){
+		List<Message> messages = new ArrayList<>();
+		String recipient = null;
+		
+		String[] msg = FileHelper.loadMessages(x.getMessagesFile());
+		
+		for(String messageText : FileHelper.loadMessages(x.getMessagesFile())) {
+			msg = messageText;
+		
+		for(int i = 1; i < x.getMessageLines().size(); i++)
+					
+		}
+		
+		
+		
+		for(String messageText : FileHelper.loadMessages(x.getMessagesFile())) {
+/*			Pattern pattern = Pattern.compile("^[^,]*");
+			Matcher matcher = pattern.matcher(messageText);
+			if (matcher.matches()){
+				recipient = matcher.toString();
+			}
+			Character y = Character.getCharacterByName(recipient);
+			Message m = new Message(messageText, x, y);
+			messages.add(m);
+*/		}
+		return messages;	
+	}
+	
+	
+	
+	
+	public int countHappySmileys() {	
+		int happyCounter = 0;
+		for(String message : sender.getMessageLines()) {
+			if(message.matches(".*[😄😊🙂😍].*"))
+				happyCounter++;				
+			}
+		return happyCounter;	
+	}
+	
+	public int countSadSmileys() {	
+		int sadCounter = 0;
+		for(String message : sender.getMessageLines()) {
+			if(message.matches(".*[😢😭👿😞].*"))
+				sadCounter++;				
+			}
+		return sadCounter;	
+	}
+	
+	public int countLoveSmileys() {	
+		int sadCounter = 0;
+		for(String message : sender.getMessageLines()) {
+			if(message.matches(".*[😢😭👿😞].*"))
+				sadCounter++;				
+			}
+		return sadCounter;	
+	}
+	
+	public int countSmileys(Emoji e) {	
+		int counter = 0;
+		String emoji = e.getMood();
+		for(String message : sender.getMessageLines()) {
+			if(emoji.equals("happy"))
+				counter++;				
+			}
+		return counter;	
+	}
+	
+	
+
+		
+		
+		
+		
+		
+	
+
+	
+	
+
+		
+		
+		
+		
+	
+
+}

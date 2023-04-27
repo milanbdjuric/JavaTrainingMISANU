@@ -1,0 +1,36 @@
+package praksa;
+
+import java.util.*;
+
+public class CharacterHelper {
+	
+public static List<Character> importCharacters(){
+		
+		List<Character> characters = new ArrayList<>();		
+		String metadata = FileHelper.loadMetaData();
+		String[] lines = metadata.split(System.lineSeparator());
+		
+		for(int i = 1; i < lines.length; i++) {
+			
+			String[] string = lines[i].split(",");
+
+			String name = string[0].trim();
+			String allegiance = string[1].trim();
+			String messagesFile = string[2].trim();
+			
+			Character character = new Character(name, allegiance, messagesFile);
+			
+			characters.add(character);
+		}
+		return characters;
+	}
+	
+	public static Character getCharacterByName(String name) {
+		Character x = null;
+		for(Character character : importCharacters()) {
+			if(character.getName().contains(name))
+				x = character;
+		}
+		return x;		
+	}
+}

@@ -1,0 +1,69 @@
+package praksa;
+
+import java.util.*;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		List<Character> characters = CharacterImporter.importCharacters();
+		
+		Character dany = Character.getCharacterByName("Daenerys");
+		
+		Messages daenerysMessages = new Messages(dany);
+		
+		daenerysMessages.printMessages();
+			
+		System.out.println();
+		
+		for(Character character : characters) { 
+			Messages messages = new Messages(character);
+			System.out.println(character.getName() + " had " + messages.countMessages() + " messages.");
+		}
+				
+		System.out.println();
+		
+		for(Character character : characters) {
+			Messages messages = new Messages(character);
+			messages.printSenderDisposition();
+		}
+		
+		System.out.println("\nThe happiest character is " + Character.getHappiestCharacter().getName() + ".");
+
+		System.out.println("The saddest character is " + Character.getSaddestCharacter().getName() + ".\n");
+				
+		
+/*		int jonLovesDanyCount = 0;
+		int danyLovesJonCount = 0;
+		
+		for(Character character : characters) {
+			
+			Pattern pattern = Pattern.compile("^Jon.*|^Daenerys.*");
+			
+			Messages messages = new Messages(character);
+			
+			for(Messages message : messages) {
+				
+				Matcher matcher = pattern.matcher(message);
+				
+				if(message.matches(".*[😍😘].*") && matcher.matches()) {				
+					if(character.getName().contains("Daenerys"))
+						danyLovesJonCount++;
+					if(character.getName().contains("Jon"))
+							jonLovesDanyCount++;	
+				}
+			}
+		}
+		
+		if(jonLovesDanyCount > danyLovesJonCount)
+			System.out.println("\nJon loves Daenerys more than Daenerys loves Jon.");
+		
+		else if(jonLovesDanyCount < danyLovesJonCount)
+			System.out.println("\nDaenerys loves Jon more than Jon loves Daenerys.");
+		
+		else
+			System.out.println("\nDaenerys and Jon love each other equally.");
+*/		
+
+	}
+}

@@ -1,0 +1,15 @@
+package praksa;
+
+import java.util.List;
+
+public class Messages {
+	
+	private List<String> messages;
+	
+	public List<String> getMessagesFrom(Character character) {
+		return FileHelper.loadMessages(character.getMessagesFile());
+	}
+	
+	
+
+}
