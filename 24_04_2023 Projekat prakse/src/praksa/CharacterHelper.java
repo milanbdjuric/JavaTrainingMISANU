@@ -2,7 +2,7 @@ package praksa;
 
 import java.util.*;
 
-public interface CharacterHelper {
+public class CharacterHelper {
 		
 	public static List<Character> importCharacters(){
 			
