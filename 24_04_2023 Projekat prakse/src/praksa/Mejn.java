@@ -4,59 +4,46 @@ import java.util.*;
 
 public class Mejn {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
-		List<Character> characters = CharacterHelper.importCharacters();
+		GoT gameOfThrones = new GoT();
 		
-		Character daenerys = CharacterHelper.getCharacterByName("Daenerys");		
+		gameOfThrones.load();
 		
-		Messages daenerysMessages = new Messages(daenerys);
+		List<Character> characters = gameOfThrones.getCharacters();
 		
-		daenerysMessages.printMessages();
-				
-		System.out.println();
-				
-		Character happiest = null;
-		int maxHappy = Integer.MIN_VALUE;
+		Character daenerys = new Character();
+		Character jon = new Character();
 		
-		Character saddest = null;
-		int maxSad = Integer.MAX_VALUE;
-		
-		for(Character character : characters) { 
-			
-			Messages messages = new Messages(character);
-			
-			int count = messages.countMessages();		
-			int happy = messages.countEmojis("happy");
-			int sad = messages.countEmojis("sad");
-			
-			int disposition = messages.happinessIndex();
-			String dispositionString = messages.disposition();
-			
-			System.out.println(character.getName() + " had " + count + " messages. " 
-			+ happy + " happy and " + sad + " sad emojis - " + dispositionString);
-			
-			if(disposition > maxHappy) {
-				happiest = character;
-				maxHappy = disposition;
+		for(Character character : characters) {
+			if(character.toString().contains("Daenerys")) {
+				daenerys = character;
 			}
-			
-			if(disposition < maxSad) {
-				saddest = character;
-				maxSad = disposition;
-			}	
+			if(character.toString().contains("Jon")) {
+				jon = character;
+			}
 		}
 		
-		System.out.println("\nThe happiest character is " + happiest.getName() 
-		+ " of " + happiest.getAllegiance() + ".");
+		gameOfThrones.printCharacterMessages(daenerys);
 		
-		System.out.println("The saddest character is " + saddest.getName() 
-		+ " of " + saddest.getAllegiance() + ".");
-			
+		System.out.println();
 		
-		Character jon = CharacterHelper.getCharacterByName("Jon");
-					
-		CharacterHelper.whoSentMoreEmojisToEachOther(daenerys, jon, "love");
-				
+		gameOfThrones.printNumberOfMessagesByCharacter();
+		
+		System.out.println();
+		
+		for(Character character : characters) {
+			gameOfThrones.printCharacterHappiness(character);
+		}
+		
+		System.out.println();
+		
+		gameOfThrones.printCharacterWithMostDisposition(EmojiType.HAPPY);
+		gameOfThrones.printCharacterWithMostDisposition(EmojiType.SAD);
+		
+		System.out.println();
+
+		gameOfThrones.printCharacterToCharacterDisposition(daenerys, jon, EmojiType.LOVING);
+		
 	}
 }

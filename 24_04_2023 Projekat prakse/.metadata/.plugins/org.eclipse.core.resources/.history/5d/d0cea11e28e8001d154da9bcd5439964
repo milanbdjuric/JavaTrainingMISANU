@@ -1,0 +1,47 @@
+package praksa;
+
+import java.util.*;
+
+public class GoT {
+
+	private Map<Character, List<Message>> characterMessages;
+	private List<CharacterData> characterDataList;
+	
+	GoT(){
+		this.characterMessages = new HashMap<Character, List<Message>>();
+		this.characterDataList = new ArrayList<CharacterData>();
+	}
+	
+	public void load() throws Exception {
+		
+		String metaData = FileHelper.loadMetaData();
+		String[] lines = metaData.split(System.lineSeparator());
+		
+		for(int i = 1; i < lines.length; i++) {
+			String[] fields = lines[i].split(StringExtractor.COMMA);
+				
+			CharacterData characterData = new CharacterData();
+			characterData.setCharacter(new Character(fields[0].trim()));
+			characterData.setAllegiance(fields[1].trim());
+			characterData.setMessageFileName(fields[2].trim());
+			characterDataList.add(characterData);
+			
+			List<String> messageLines = FileHelper.loadMessages(fields[2].trim());
+			List<Message> messages = new ArrayList<>();
+			
+            for (String message : messageLines) {
+                messages.add(new Message().extractFromString(message, StringExtractor.COMMA));
+            }
+            characterMessages.put(characterData.getCharacter(), messages);
+        }
+		
+		
+			
+			
+
+		
+		
+		
+	}
+
+}

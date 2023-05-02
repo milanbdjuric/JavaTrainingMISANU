@@ -1,0 +1,31 @@
+package praksa;
+
+public class Character implements StringExtractor<Character>{
+	
+	private String firstName, lastName;
+
+	@Override
+	public Character extractFromString(String string, String fieldSeparator) throws Exception {
+		
+		String[] names = string.split(SPACE);
+		
+		if(names.length >= 2) {
+			
+		
+		this.firstName = names[0].trim();
+		this.lastName = names[1].trim();
+		}
+		else {
+			throw new Exception("The name must contain of first and last name.");
+		}
+		return this;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+}

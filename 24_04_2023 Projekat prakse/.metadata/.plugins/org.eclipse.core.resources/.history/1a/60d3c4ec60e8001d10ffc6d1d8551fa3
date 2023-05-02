@@ -1,0 +1,37 @@
+package praksa;
+
+import java.util.*;
+
+public class Mejn {
+
+	public static void main(String[] args) throws Exception {
+		
+		GoT got = new GoT();
+		
+		got.load();
+		
+		List<Character> characters = got.getCharacters();
+		
+		Character daenerys = new Character();
+		
+		for(Character character : characters) {
+			if(character.getFirstName().contains("Daenerys")) {
+				daenerys = character;
+			}
+		}
+		
+		got.printCharacterMessages(daenerys);
+		
+		System.out.println();
+		
+		got.printNumberOfMessagesByCharacter();
+		
+		System.out.println();
+		
+		got.printCharacterHappiness(daenerys);
+		
+		
+		
+		
+	}	
+}

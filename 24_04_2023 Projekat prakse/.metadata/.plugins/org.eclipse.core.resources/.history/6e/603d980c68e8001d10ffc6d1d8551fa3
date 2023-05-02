@@ -1,0 +1,166 @@
+package praksa;
+
+import java.util.*;
+
+public class GoT {
+
+	private Map<Character, List<Message>> characterMessages;
+	private List<CharacterData> characterDataList;
+	
+	GoT(){
+		this.characterMessages = new HashMap<Character, List<Message>>();
+		this.characterDataList = new ArrayList<CharacterData>();
+	}
+	
+	public void load() throws Exception {
+		
+		String metaData = FileHelper.loadMetaData();
+		String[] lines = metaData.split(System.lineSeparator());
+		
+		for(int i = 1; i < lines.length; i++) {
+			String[] fields = lines[i].split(StringExtractor.COMMA);
+				
+			CharacterData characterData = new CharacterData();
+			characterData.setCharacter(new Character().extractFromString(fields[0], StringExtractor.SPACE));
+			characterData.setAllegiance(fields[1].trim());
+			characterData.setMessageFileName(fields[2].trim());
+			characterDataList.add(characterData);
+			
+			List<String> messageLines = FileHelper.loadMessages(fields[2].trim());
+			List<Message> messages = new ArrayList<>();
+			
+            for (int j = 1; j < messageLines.size(); j++) {
+                if(messageLines.get(j).isBlank() || messageLines.get(j).isEmpty())
+                	continue;
+                else
+                	messages.add(new Message().extractFromString(messageLines.get(j), StringExtractor.COMMA));
+            }
+            characterMessages.put(characterData.getCharacter(), messages);
+        }	
+	}
+
+	public Map<Character, List<Message>> getCharacterMessages() {
+		return characterMessages;
+	}
+
+	public List<CharacterData> getCharacterDataList() {
+		return characterDataList;
+	}
+	
+	public List<Character> getCharacters(){
+		List<Character> characters = new ArrayList<Character>();
+		for(CharacterData characterdata: characterDataList) {
+			characters.add(characterdata.getCharacter());
+		}
+		return characters;
+	}
+	
+	private List<Message> getMessagesForCharacter(Character character){
+		return this.characterMessages.get(character);
+	}
+	
+	private String characterAllMessageContent(Character character) {
+		List<Message> messages = characterMessages.get(character);
+		StringBuilder content = new StringBuilder();
+		for(Message message : messages) {
+			content.append(message.getContent());
+			content.append(System.lineSeparator());
+		}
+		return content.toString();	
+	}
+	
+	private String characterToCharacterMessagesContent(Character character1, Character character2) {
+		List<Message> messages1 = characterMessages.get(character1);
+		List<Message> messages2 = characterMessages.get(character2);
+		StringBuilder content = new StringBuilder();
+		for(Message message1 : messages1) {
+			for(Message message2 : messages2) {
+				if(message1.equals(message2)) {
+					content.append(message1.getContent());
+					content.append(System.lineSeparator());
+				}
+			}
+		}
+		return content.toString();
+	}
+	
+	public void printCharacterMessages(Character character) {
+		List<Message> messages = getMessagesForCharacter(character);
+		System.out.println("All the messages from " + character.getFirstName() + ":\n");
+		for(Message message : messages) {
+			System.out.println(message.toString());
+		}	
+	}
+	
+	public void printNumberOfMessagesByCharacter() {
+		for (Character character : characterMessages.keySet()) {
+			int numberOfMessages = characterMessages.get(character).size();
+			System.out.println(character.getFirstName() + " " + character.getLastName() + " had " +
+			numberOfMessages + " messages. ");		
+		}
+	}
+	
+	private int countRegexInString(String regex, String messageData) {
+		int counter = 0;
+		while(messageData.matches(".*" + regex + ".*")) {
+			counter++;
+			messageData = messageData.replaceFirst(regex, "");
+		}
+		return counter;
+	}
+	
+	private int countEmojisByCharacterAndType(Character character, EmojiType emojiType) {
+		List<Message> messages = getMessagesForCharacter(character);
+		int counter = 0;
+		for(Message message : messages) {
+			counter += countRegexInString(emojiType.getRegex(), message.getContent());
+		}
+		return counter;		
+	}
+	
+	private int countEmojisFromCharacterToCharacter(Character character1, Character character2, EmojiType emojiType) {
+		String content = characterToCharacterMessagesContent(character1, character2);
+		return countRegexInString(emojiType.getRegex(), content);
+	}
+	
+	private int happinessIndexOf(Character character) {
+		int happyEmojis = countEmojisByCharacterAndType(character, EmojiType.HAPPY);
+		int sadEmojis = countEmojisByCharacterAndType(character, EmojiType.SAD);
+		return happyEmojis - sadEmojis;
+	}
+
+	
+	public void printCharacterHappiness(Character character) {		
+		int happyEmojis = countEmojisByCharacterAndType(character, EmojiType.HAPPY);
+		int sadEmojis = countEmojisByCharacterAndType(character, EmojiType.SAD);
+		System.out.print(character.getFirstName() + " had " + happyEmojis 
+				+ " happy and " + sadEmojis + " sad emoticons: ");
+		if(happinessIndexOf(character) > 0)
+			System.out.println("more happy than sad. ");
+		else if(happinessIndexOf(character) < 0)
+			System.out.println("more sad than happy. ");
+		else
+			System.out.println("equally happy and sad. ");
+		
+	}
+	
+	public void printCharacterWithMostDisposition(EmojiType emojiType) {
+		Character mostDispositionCharacter = null;
+		int mostDispositionCounter = 0;
+		for(Character character : characterMessages.keySet()) {
+			int dispositionCounter = countEmojisByCharacterAndType(character, emojiType);
+			if(dispositionCounter>mostDispositionCounter) {
+				mostDispositionCounter = dispositionCounter;
+				mostDispositionCharacter = character;
+			}
+		}
+		System.out.println("The " + emojiType.getMood() + "est character is " 
+		+ mostDispositionCharacter.getFirstName() + ".");
+	}
+	
+	
+	
+	
+	
+
+}

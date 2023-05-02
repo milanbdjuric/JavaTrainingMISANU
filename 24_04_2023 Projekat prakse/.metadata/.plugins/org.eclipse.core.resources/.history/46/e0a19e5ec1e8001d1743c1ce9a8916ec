@@ -1,0 +1,24 @@
+package praksa;
+
+public class Character implements StringExtractor<Character>{
+	
+	private String firstName, lastName;
+	
+	@Override
+	public Character extractFromString(String entity, String fieldSeparator) {
+		if(entity.contains(" ")) {
+			String[] fields = entity.split(SPACE);
+			this.firstName = fields[0].trim();
+			this.lastName = fields[1].trim();
+		} else {
+			this.firstName = entity.trim();
+		}		
+		return this;
+	}
+
+	@Override
+	public String toString() {
+		return firstName + " " + lastName;
+	}
+
+}

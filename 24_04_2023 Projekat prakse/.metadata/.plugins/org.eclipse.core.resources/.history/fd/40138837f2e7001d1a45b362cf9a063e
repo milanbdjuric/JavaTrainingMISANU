@@ -1,0 +1,28 @@
+package praksa;
+
+public class CharacterData implements StringExtractor<CharacterData>{
+	
+    private Character character;
+    private String allegiance;
+    private String messageFileName;
+    
+    public CharacterData extractFromString(String string, String fieldSeparator) {
+        String[] fields = string.split(COMMA);
+        this.character = new Character().extractFromString(fields[0], SPACE);
+        this.allegiance = fields[1];
+        this.messageFileName = fields[2];
+        return this;
+    }
+    
+    public Character getCharacter() {
+        return this.character;
+    }
+    
+    public String getAllegiance() {
+        return this.allegiance;
+    }
+    
+    public String getMessageFileName() {
+        return this.messageFileName;
+    }
+}

@@ -1,0 +1,48 @@
+package praksa;
+
+import java.util.*;
+
+public class Mejn {
+
+	public static void main(String[] args) throws Exception {
+		
+		GoT got = new GoT();
+		
+		got.load();
+		
+		List<Character> characters = got.getCharacters();
+		
+		Character daenerys = new Character();
+		Character jon = new Character();
+		
+		for(Character character : characters) {
+			if(character.getFirstName().contains("Daenerys")) {
+				daenerys = character;
+			}
+			if(character.getFirstName().contains("Jon")) {
+				jon = character;
+			}
+		}
+		
+		got.printCharacterMessages(daenerys);
+		
+		System.out.println();
+		
+		got.printNumberOfMessagesByCharacter();
+		
+		System.out.println();
+		
+		for(Character character : characters) {
+			got.printCharacterHappiness(character);
+		}
+		
+		System.out.println();
+		
+		got.printCharacterWithMostDisposition(EmojiType.HAPPY);
+		got.printCharacterWithMostDisposition(EmojiType.SAD);
+		
+		System.out.println();
+		
+		got.printCharacterToCharacterDisposition(daenerys, jon, EmojiType.LOVING);
+	}	
+}

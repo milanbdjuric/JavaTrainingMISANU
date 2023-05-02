@@ -1,0 +1,5 @@
+package praksa;
+
+public interface ObjectExtractor {
+
+}

@@ -1,0 +1,22 @@
+package praksa;
+
+public class Message implements StringExtractor<Message>{
+	
+    private Character receiver;
+    private String content;
+    
+    @Override
+    public Message extractFromString(String entity, String fieldSeparator) {
+        String[] fields = entity.split(fieldSeparator);
+        this.receiver = new Character(fields[0]);
+        this.content = fields[1].trim();
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return content;
+    }
+
+
+}

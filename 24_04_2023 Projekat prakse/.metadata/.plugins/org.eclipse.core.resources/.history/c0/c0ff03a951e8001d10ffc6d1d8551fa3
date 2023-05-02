@@ -1,0 +1,11 @@
+package praksa;
+
+public class EmojiType {
+	
+	HAPPY("happy", "(😄|🙂|😊|😍)"),
+	SAD("sad", "(😢|😭|😞|👿)"),
+	LOVING("loving", "(😍|😘)");
+	
+	
+
+}

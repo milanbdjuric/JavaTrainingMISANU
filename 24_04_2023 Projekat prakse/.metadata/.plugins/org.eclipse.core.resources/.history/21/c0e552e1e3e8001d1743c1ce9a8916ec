@@ -1,0 +1,47 @@
+package praksa;
+
+public class Message implements StringExtractor<Message>{
+	
+    private Character receiver;
+    private String content;
+    
+    @Override
+    public Message extractFromString(String entity, String fieldSeparator) {
+
+        int firstCommaIndex = entity.indexOf(COMMA);
+        
+        if (firstCommaIndex == -1) {       
+        	this.receiver = new Character().extractFromString(entity.trim(), SPACE);
+        	this.content = "";
+        }
+        
+        String recipientString = entity.substring(0, firstCommaIndex+1).trim();
+        this.receiver = new Character().extractFromString(recipientString.trim(), SPACE);
+
+        content = entity.substring(firstCommaIndex + 1).trim();
+        this.content = content.substring(1, this.content.length());
+        
+        return this;
+    }
+
+    public Character getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(Character receiver) {
+		this.receiver = receiver;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	@Override
+    public String toString() {
+        return "Recipient: " + receiver + ", message: \"" + content + "\"";
+    }
+}

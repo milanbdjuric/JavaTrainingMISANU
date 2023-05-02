@@ -1,9 +1,0 @@
-package praksa;
-
-import java.util.*;
-
-public abstract class Niz<T> {
-	
-	List<T> characters = new ArrayList<>();
-
-}

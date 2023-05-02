@@ -1,0 +1,10 @@
+package praksa;
+
+import java.util.*;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+	}	
+}

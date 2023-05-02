@@ -1,0 +1,60 @@
+package praksa;
+
+import java.util.Objects;
+
+public class Character implements StringExtractor<Character>, StringDeserializer<Character>{
+	
+	private String firstName, lastName;
+	
+	@Override
+	public Character extractFromString(String entity, String fieldSeparator) {
+		
+		try {
+			// prvo procitamo objekat iz fajla...
+			
+			FileInputStream fis = new FileInputStream(fajl);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			
+			// ... pa pozivamo metodu za deserijalizaciju:
+			
+			Synthesizer sint2 = (Synthesizer)ois.readObject();
+			
+			fis.close();
+			ois.close();
+		}
+		catch(Exception e) {
+			System.out.println("Ufatismo exception!");
+		}
+		
+		
+		String[] fields = entity.split(SPACE);
+		this.firstName = fields[0].trim();
+		
+		if(fields.length > 1)
+			this.lastName = fields[1].trim();
+		return this;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(firstName, lastName);
+	}
+
+	@Override
+	public String toString() {
+		if(lastName != null)
+			return firstName + " " + lastName;
+		else
+			return firstName;
+	}
+
+	@Override
+	public Character deserializeFromString(String string, String fieldSeparator) {
+		
+		
+		
+		
+		
+		return null;
+	}
+}

@@ -1,0 +1,42 @@
+package praksa;
+
+import java.util.*;
+
+public class Mejn {
+
+	public static void main(String[] args) throws Exception {
+		
+		GoT gameOfThrones = new GoT();
+		
+		gameOfThrones.load();
+		
+		List<Character> characters = gameOfThrones.getCharacters();
+		
+		Character daenerys = gameOfThrones.getCharacterByName("Jon");
+		
+		gameOfThrones.printCharacterMessages(daenerys);
+		
+		System.out.println();
+		
+		gameOfThrones.printNumberOfMessagesByCharacter();
+		
+		System.out.println();
+		
+		for(Character character : characters) {
+			gameOfThrones.printCharacterHappiness(character);
+		}
+		
+		System.out.println();
+		
+		gameOfThrones.printCharacterWithMostDisposition(EmojiType.HAPPY);
+		gameOfThrones.printCharacterWithMostDisposition(EmojiType.SAD);
+		
+		System.out.println();
+		
+		Character jon = gameOfThrones.getCharacterByName("Jon");
+		
+		gameOfThrones.printCharacterToCharacterDisposition(daenerys, jon, EmojiType.LOVING);
+		
+
+	}
+}

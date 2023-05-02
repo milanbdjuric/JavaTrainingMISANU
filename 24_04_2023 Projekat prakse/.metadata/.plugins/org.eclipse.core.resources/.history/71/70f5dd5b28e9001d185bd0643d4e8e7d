@@ -1,0 +1,9 @@
+package praksa;
+
+public interface StringDeserializer<T> {
+	
+	public static final String COMMA = ",";
+	public static final String SPACE = " ";
+	
+	public T deserializeFromString(String string, String fieldSeparator);
+}

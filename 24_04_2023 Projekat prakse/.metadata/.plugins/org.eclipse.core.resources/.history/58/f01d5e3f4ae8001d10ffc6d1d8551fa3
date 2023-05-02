@@ -1,0 +1,20 @@
+package praksa;
+
+public class Mejn {
+
+	public static void main(String[] args) throws Exception {
+		
+		GoT got = new GoT();
+		
+		got.load();
+		
+		Character daenerys = got.getCharacterByName("Daenerys");
+		
+		got.printCharacterMessages(daenerys);
+		
+
+		
+
+
+	}	
+}

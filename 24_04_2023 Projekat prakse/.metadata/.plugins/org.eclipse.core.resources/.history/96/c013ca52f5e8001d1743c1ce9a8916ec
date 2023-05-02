@@ -1,0 +1,44 @@
+package praksa;
+
+import java.util.Objects;
+
+public class Character implements StringExtractor<Character>{
+	
+	private String firstName, lastName;
+	
+	@Override
+	public Character extractFromString(String entity, String fieldSeparator) {
+		
+		String[] fields = entity.split(SPACE);
+		this.firstName = fields[0].trim();
+		
+		if(fields.length > 1)
+			this.lastName = fields[1].trim();
+		return this;
+	}
+	
+//	@Override
+//	public int hashCode() {
+//		return Objects.hash(firstName, lastName);
+//	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other == this)
+			return true;
+		if(!(other instanceof Character))
+			return false;
+		Character otherCharacter = (Character) other;
+		return Objects.equals(firstName, otherCharacter.firstName) &&
+				Objects.equals(lastName, otherCharacter.lastName);
+	}	
+
+	@Override
+	public String toString() {
+		if(lastName != null)
+			return firstName + " " + lastName;
+		else
+			return firstName;
+	}
+
+}

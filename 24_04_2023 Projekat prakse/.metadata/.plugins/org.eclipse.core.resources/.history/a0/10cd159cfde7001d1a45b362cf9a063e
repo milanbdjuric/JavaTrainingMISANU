@@ -1,0 +1,17 @@
+package praksa;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		GoT got = new GoT();
+		
+		got.load();
+		
+		
+		
+		
+		
+		
+	}	
+}

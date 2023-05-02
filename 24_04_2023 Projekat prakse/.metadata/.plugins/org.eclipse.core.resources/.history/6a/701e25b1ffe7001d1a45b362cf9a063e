@@ -1,0 +1,25 @@
+package praksa;
+
+public class Character implements StringExtractor<Character>{
+	
+	private String firstName, lastName;
+
+	@Override
+	public Character extractFromString(String string, String fieldSeparator) {
+		
+		String[] names = string.split(SPACE);
+		
+		this.firstName = names[0].trim();
+		this.lastName = names[1].trim();
+		
+		return this;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+}

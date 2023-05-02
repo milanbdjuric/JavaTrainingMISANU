@@ -1,24 +1,32 @@
 package praksa;
 
-public class Character {
-	
-	private String name, allegiance, messagesFile;
-	
-	Character(String name, String allegiance, String messagesFile){
-		this.name = name;
-		this.allegiance = allegiance;
-		this.messagesFile = messagesFile;
- 	}
+import java.util.Objects;
 
-	public String getName() {
-		return name;
+public class Character implements StringExtractor<Character>{
+	
+	private String firstName, lastName;
+	
+	@Override
+	public Character extractFromString(String entity, String fieldSeparator) {
+		
+		String[] fields = entity.split(fieldSeparator);
+		this.firstName = fields[0].trim();
+		
+		if(fields.length > 1)
+			this.lastName = fields[1].trim();
+		return this;
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(firstName, lastName);
 	}
 
-	public String getAllegiance() {
-		return allegiance;
-	}
-
-	public String getMessagesFile() {
-		return messagesFile;
+	@Override
+	public String toString() {
+		if(lastName != null)
+			return firstName + " " + lastName;
+		else
+			return firstName;
 	}
 }
