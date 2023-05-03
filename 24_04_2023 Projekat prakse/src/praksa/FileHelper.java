@@ -8,16 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileHelper {
+	
+		// javna staticka metoda koja cita podatke iz fajla i vraca string
 
 	public static String loadMetaData() {
-		StringBuffer characterData = new StringBuffer();
-		File file = new File("resource/got_meta_data.txt");
+		StringBuffer characterData = new StringBuffer();			// StringBuffer je klasa slicna Stringu, ali koja moze da se modifikuje...
+		File file = new File("resource/got_meta_data.txt");			// ...bez potrebe za pravljenjem novog objekta
 
 		try {
-			BufferedReader buffer = new BufferedReader(new FileReader(file));
+			BufferedReader buffer = new BufferedReader(new FileReader(file));		// otvara se bufferedreader...
 			String aLine;
-			while ((aLine = buffer.readLine()) != null) {
-				characterData.append(aLine);
+			while ((aLine = buffer.readLine()) != null) {							// ...koji cita red po red, dok ima redova...
+				characterData.append(aLine);										// ...i dodaje ih
 				characterData.append(System.lineSeparator());
 			}
 			buffer.close();
@@ -27,6 +29,8 @@ public class FileHelper {
 
 		return characterData.toString();
 	}
+	
+		// javna staticka metoda koja cita podatke iz fajla, svaki red cuva kao string i pohranjuje u listu koju vraca
 
 	public static List<String> loadMessages(String fileName) {
 		List<String> messages = new ArrayList<String>();

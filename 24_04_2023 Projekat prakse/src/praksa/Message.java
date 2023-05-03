@@ -9,20 +9,24 @@ public class Message implements StringExtractor<Message>{
     @Override
     public Message extractFromString(String entity, String fieldSeparator) {
 
-        int firstCommaIndex = entity.indexOf(fieldSeparator);
-        
-       if (firstCommaIndex == -1) {       
-    	   
-    	   this.receiver = new Character().extractFromString(entity.trim(), fieldSeparator);
-    	   this.content = "";
-    	   
-    	   return this;
-        }
-        
+    		// trazimo indeks prvog zareza, jer se ime posiljaoca nalazi do tog mesta
+    	
+    	int firstCommaIndex = entity.indexOf(fieldSeparator);
+    	
+    		// pravimo string sa imenom i prezimenom posiljaoca
+              
         String recipientString = entity.substring(0, firstCommaIndex).trim();
+        
+        	// pravimo string sa imenom i prezimenom posiljaoca
+        
         this.receiver = new Character().extractFromString(recipientString.trim(), SPACE);
+        
+        	// pravimo string same poruke, ne ukljucujuci zarez
 
         this.content = entity.substring(firstCommaIndex + 1).trim();
+        
+        	// uklanjamo navodnike jer nisu deo poruke kao takve
+        
         this.content = this.content.substring(1, this.content.length()-1);
         
         return this;
@@ -50,6 +54,6 @@ public class Message implements StringExtractor<Message>{
 
 	@Override
     public String toString() {
-        return "Recipient: " + receiver + " / Message: " + content;
+        return "\nRecipient: " + receiver + "\nMessage: " + content;
     }
 }

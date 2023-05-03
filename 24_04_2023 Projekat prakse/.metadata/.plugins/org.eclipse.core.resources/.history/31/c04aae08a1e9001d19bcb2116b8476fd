@@ -1,0 +1,51 @@
+package praksa;
+
+public class Mejn {
+
+	public static void main(String[] args) throws Exception {
+		
+		GoT gameOfThrones = new GoT();
+		
+			// ucitavamo podatke iz fajlova, pravimo objekte, liste, mapu...
+		
+		gameOfThrones.load();
+		
+			// izvlacimo karaktere daenerys i jon sa kojima cemo raditi
+		
+		Character daenerys = new Character();
+		Character jon = new Character();
+		
+		for(Character character : gameOfThrones.getCharacters()) {
+			if(character.toString().contains("Daenerys")) {
+				daenerys = character;
+			}
+			if(character.toString().contains("Jon")) {
+				jon = character;
+			}
+		}
+		
+			// stampamo sve poruke kataktera posiljaoca
+		
+		gameOfThrones.printCharacterMessages(daenerys);
+		
+		System.out.println();
+		
+		gameOfThrones.printNumberOfMessagesByCharacter();
+		
+		System.out.println();
+		
+		for(Character character : gameOfThrones.getCharacters()) {
+			gameOfThrones.printCharacterHappiness(character);
+		}
+		
+		System.out.println();
+		
+		gameOfThrones.printCharacterWithMostDisposition(EmojiType.HAPPY);
+		gameOfThrones.printCharacterWithMostDisposition(EmojiType.SAD);
+		
+		System.out.println();
+
+		gameOfThrones.printCharacterToCharacterDisposition(daenerys, jon, EmojiType.HAPPY);
+		
+	}
+}

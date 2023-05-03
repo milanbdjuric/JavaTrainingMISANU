@@ -1,9 +1,0 @@
-package praksa;
-
-public class Message {
-	
-	private String message;
-	
-	public String getMessage
-
-}

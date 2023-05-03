@@ -8,10 +8,17 @@ public class CharacterData implements StringExtractor<CharacterData>{
     
     @Override
     public CharacterData extractFromString(String string, String fieldSeparator) {
-        String[] fields = string.split(fieldSeparator);
-        this.character = new Character().extractFromString(fields[0], fieldSeparator);
+    	
+    		// delimo string na polja fieldseparatorom (",")
+    	
+    	String[] fields = string.split(fieldSeparator);
+    	
+    		// prvo polje je string sa imenom i prezimenom karaktera posiljaoca, njega delimo i pravimo objekat
+        
+    	this.character = new Character().extractFromString(fields[0], fieldSeparator);
         this.allegiance = fields[1].trim();
         this.messageFileName = fields[2].trim();
+        
         return this;
     }
     

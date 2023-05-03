@@ -13,6 +13,8 @@ public class GoT {
 		this.characterDataList = new ArrayList<CharacterData>();
 	}
 	
+		// javna metoda load() koja unosi sve podatke dobijene pozivanjem metoda klase filehelper i rasporedjuje ih u objekte, liste i mapu
+	
 	public void load() {
 		String[] lines = FileHelper.loadMetaData().split(System.lineSeparator());
 		
@@ -38,7 +40,7 @@ public class GoT {
 			List<Message> messages = new ArrayList<>();
 		
 			for(int i = 1; i < messageLines.size(); i++) {
-				if(messageLines.get(i).isBlank() || messageLines.get(i).isEmpty())
+				if(messageLines.get(i).isBlank() || messageLines.get(i).isEmpty())   // jer ima i praznih linija u txt fajlovima :)
 					continue;
 				else {
 					Message message = new Message().extractFromString(messageLines.get(i), StringExtractor.COMMA);
@@ -46,8 +48,10 @@ public class GoT {
 				}
 			}
 			characterMessages.put(sender, messages);
-		}	
+		}
 	}
+	
+		// javna metoda koja vraca listu svih karaktera
 	
 	public List<Character> getCharacters(){		
 		List<Character> characters = new ArrayList<Character>();
@@ -58,10 +62,14 @@ public class GoT {
 		return characters;
 	}
 	
+		// privatna metoda koja vraca listu svih poruka odredjenog karaktera posiljaoca
+	
 	private List<Message> getMessagesFromCharacter(Character character){
 		
 		return this.characterMessages.get(character);
 	}
+	
+		// privatna metoda koja vraca listu poruka koje je jedan karakter poslao drugom
 	
 	private List<Message> characterToCharacterMessages(Character character1, Character character2) {		
 		List<Message> messages = new ArrayList<Message>();
@@ -75,6 +83,8 @@ public class GoT {
 		return messages;
 	}
 	
+		// javna metoda koja stampa sve poruke odredjenog karaktera
+	
 	public void printCharacterMessages(Character character) {
 		List<Message> messages = getMessagesFromCharacter(character);
 		
@@ -85,12 +95,16 @@ public class GoT {
 		}	
 	}
 	
+		// javna metoda koja stampa broj poruka odredjenog karaktera
+	
 	public void printNumberOfMessagesByCharacter() {
 		for (Character character : characterMessages.keySet()) {
 			int numberOfMessages = characterMessages.get(character).size();
 			System.out.println(character.toString() + " had " + numberOfMessages + " messages. ");		
 		}
 	}
+	
+		// privatna metoda za prebrojavanje regexa u stringu
 	
 	private int countRegexInString(String regex, String messageData) {
 		int counter = 0;
@@ -104,6 +118,8 @@ public class GoT {
 	    return counter;
 	}
 	
+		// privatna metoda za prebrojavanje zeljenog emotikona u porukama karaktera posiljaoca
+	
 	private int countEmojisByCharacterAndType(Character character, EmojiType emojiType) {
 		List<Message> messages = getMessagesFromCharacter(character);
 		
@@ -114,6 +130,8 @@ public class GoT {
 		}
 		return counter;		
 	}
+	
+		// privatna metoda za prebrojavanje zeljenjih emotikona koje je jedan karakter poslao drugom
 	
 	private int countEmojisFromCharacterToCharacter(Character character1, Character character2, EmojiType emojiType) {
 		List<Message> messages = characterToCharacterMessages(character1, character2);
@@ -126,12 +144,16 @@ public class GoT {
 		return counter;
 	}
 	
+		// privatna metoda koja vraca celobrojni indeks srece karaktera, dobijen oduzimanjem zbira tuznih od zbira srecnih emotikona 
+	
 	private int happinessIndexOf(Character character) {
 		int happyEmojis = countEmojisByCharacterAndType(character, EmojiType.HAPPY);
 		int sadEmojis = countEmojisByCharacterAndType(character, EmojiType.SAD);
 		
 		return happyEmojis - sadEmojis;
 	}
+	
+		// javna metoda koja stampa stanje karaktera na osnovu poslatih emotikona
 	
 	public void printCharacterHappiness(Character character) {		
 		int happyEmojis = countEmojisByCharacterAndType(character, EmojiType.HAPPY);
@@ -140,6 +162,8 @@ public class GoT {
 		System.out.print(character.toString() + " had " + happyEmojis 
 				+ " happy and " + sadEmojis + " sad emoticons: ");
 		
+			// ako je indeks srece veci od nule - osoba je vise srecna, itd.
+		
 		if(happinessIndexOf(character) > 0)
 			System.out.println("more happy than sad. ");
 		else if(happinessIndexOf(character) < 0)
@@ -147,6 +171,8 @@ public class GoT {
 		else
 			System.out.println("equally happy and sad. ");	
 	}
+	
+		// javna metoda koja stampa karakter sa najvise emotikona zeljenog tipa
 	
 	public void printCharacterWithMostDisposition(EmojiType emojiType) {
 		Character mostDispositionCharacter = null;
@@ -165,6 +191,8 @@ public class GoT {
 		System.out.println(mostDispositionCharacter.toString() + " is the most " + emojiType.getMood() + " of them all. ");
 	}
 	
+		// javna metoda koja stampa broj emotikona koje je jedan karakter poslao drugome, kao i rezultat na osnovu toga
+	
 	public void printCharacterToCharacterDisposition(Character character1, Character character2, EmojiType emojiType) {	
 		int emojisFrom1To2 = countEmojisFromCharacterToCharacter(character1, character2, emojiType);
 		int emojisFrom2To1 = countEmojisFromCharacterToCharacter(character2, character1, emojiType);
@@ -173,10 +201,10 @@ public class GoT {
 		System.out.println(character2.toString() + " sent " + emojisFrom2To1 + " " + emojiType.getMood() + " emojis to " + character1.toString() + ".");
 		
 		if(emojisFrom1To2 > emojisFrom2To1)
-			System.out.println(character1.toString() + " loves " + character2.toString() + " more than vice versa. ");
+			System.out.println(character1.toString() + " is more " + emojiType.getMood() + " in this relationship. ");
 		else if(emojisFrom1To2 < emojisFrom2To1)
-			System.out.println(character2.toString() + " loves " + character1.toString() + " more than vice versa. ");
+			System.out.println(character2.toString() + " is more " + emojiType.getMood() + " in this relationship. ");
 		else
-			System.out.println(character1.toString() + " and " + character2.toString() + " love each other equally. ");
+			System.out.println(character1.toString() + " and " + character2.toString() + " are equally " + emojiType.getMood() + " in this relationship. ");
 		}
 	}

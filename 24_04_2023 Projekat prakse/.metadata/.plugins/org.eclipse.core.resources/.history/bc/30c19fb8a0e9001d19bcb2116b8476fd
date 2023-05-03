@@ -1,0 +1,208 @@
+package praksa;
+
+import java.util.*;
+import java.util.regex.*;
+
+public class GoT {
+
+	private Map<Character, List<Message>> characterMessages;
+	private List<CharacterData> characterDataList;
+	
+	GoT(){
+		this.characterMessages = new HashMap<Character, List<Message>>();
+		this.characterDataList = new ArrayList<CharacterData>();
+	}
+	
+		// javna metoda load() koja unosi sve podatke dobijene pozivanjem metoda klase filehelper i rasporedjuje ih u objekte, liste i mapu
+	
+	public void load() {
+		String[] lines = FileHelper.loadMetaData().split(System.lineSeparator());
+		
+		for(int i = 1; i < lines.length; i++) {
+			
+			String[] fields = lines[i].split(StringExtractor.COMMA);
+				
+			CharacterData characterData = new CharacterData();
+			
+			characterData.setCharacter(new Character().extractFromString(fields[0], StringExtractor.SPACE));
+			characterData.setAllegiance(fields[1].trim());
+			characterData.setMessageFileName(fields[2].trim());
+			
+			characterDataList.add(characterData);
+		}
+		
+		for(CharacterData characterData : characterDataList) {		
+			Character sender = characterData.getCharacter();
+			
+			String messageFileName = characterData.getMessageFileName();
+			
+			List<String> messageLines = FileHelper.loadMessages(messageFileName);
+			List<Message> messages = new ArrayList<>();
+		
+			for(int i = 1; i < messageLines.size(); i++) {
+				if(messageLines.get(i).isBlank() || messageLines.get(i).isEmpty())   // jer ima i praznih linija u txt fajlovima :)
+					continue;
+				else {
+					Message message = new Message().extractFromString(messageLines.get(i), StringExtractor.COMMA);
+					messages.add(message);
+				}
+			}
+			characterMessages.put(sender, messages);
+		}
+	}
+	
+		// javna metoda koja vraca listu svih karaktera
+	
+	public List<Character> getCharacters(){		
+		List<Character> characters = new ArrayList<Character>();
+		
+		for(CharacterData characterdata: characterDataList) {
+			characters.add(characterdata.getCharacter());
+		}
+		return characters;
+	}
+	
+		// privatna metoda koja vraca listu svih poruka odredjenog karaktera posiljaoca
+	
+	private List<Message> getMessagesFromCharacter(Character character){
+		
+		return this.characterMessages.get(character);
+	}
+	
+		// privatna metoda koja vraca listu poruka koje je jedan karakter poslao drugom
+	
+	private List<Message> characterToCharacterMessages(Character character1, Character character2) {		
+		List<Message> messages = new ArrayList<Message>();
+		
+		for(Message message : getMessagesFromCharacter(character1)) {
+			
+			if(message.getReceiver().hashCode() == character2.hashCode()) {
+				messages.add(message);
+			}
+		}
+		return messages;
+	}
+	
+		// javna metoda koja stampa sve poruke odredjenog karaktera
+	
+	public void printCharacterMessages(Character character) {
+		List<Message> messages = getMessagesFromCharacter(character);
+		
+		System.out.println("Messages sent by " + character.toString() + ": ");
+		
+		for(Message message : messages) {
+			System.out.println(message.toString());
+		}	
+	}
+	
+		// javna metoda koja stampa broj poruka odredjenog karaktera
+	
+	public void printNumberOfMessagesByCharacter() {
+		for (Character character : characterMessages.keySet()) {
+			int numberOfMessages = characterMessages.get(character).size();
+			System.out.println(character.toString() + " had " + numberOfMessages + " messages. ");		
+		}
+	}
+	
+		// privatna metoda za prebrojavanje regexa u stringu
+	
+	private int countRegexInString(String regex, String messageData) {
+		int counter = 0;
+	    
+		Pattern pattern = Pattern.compile(regex);
+	    Matcher matcher = pattern.matcher(messageData);
+	    
+	    while (matcher.find()) {
+	        counter++;
+	    }
+	    return counter;
+	}
+	
+		// privatna metoda za prebrojavanje zeljenog emotikona u porukama karaktera posiljaoca
+	
+	private int countEmojisByCharacterAndType(Character character, EmojiType emojiType) {
+		List<Message> messages = getMessagesFromCharacter(character);
+		
+		int counter = 0;
+		
+		for(Message message : messages) {
+			counter += countRegexInString(emojiType.getRegex(), message.getContent());
+		}
+		return counter;		
+	}
+	
+		// privatna metoda za prebrojavanje zeljenjih emotikona koje je jedan karakter poslao drugom
+	
+	private int countEmojisFromCharacterToCharacter(Character character1, Character character2, EmojiType emojiType) {
+		List<Message> messages = characterToCharacterMessages(character1, character2);
+		
+		int counter = 0;
+		
+		for(Message message : messages) {
+			counter += countRegexInString(emojiType.getRegex(), message.getContent());
+		}
+		return counter;
+	}
+	
+		// privatna metoda koja vraca celobrojni indeks srece karaktera, dobijen oduzimanjem zbira tuznih od zbira srecnih emotikona 
+	
+	private int happinessIndexOf(Character character) {
+		int happyEmojis = countEmojisByCharacterAndType(character, EmojiType.HAPPY);
+		int sadEmojis = countEmojisByCharacterAndType(character, EmojiType.SAD);
+		
+		return happyEmojis - sadEmojis;
+	}
+	
+		// javna metoda koja stampa stanje karaktera na osnovu poslatih emotikona
+	
+	public void printCharacterHappiness(Character character) {		
+		int happyEmojis = countEmojisByCharacterAndType(character, EmojiType.HAPPY);
+		int sadEmojis = countEmojisByCharacterAndType(character, EmojiType.SAD);
+		
+		System.out.print(character.toString() + " had " + happyEmojis 
+				+ " happy and " + sadEmojis + " sad emoticons: ");
+		
+		if(happinessIndexOf(character) > 0)
+			System.out.println("more happy than sad. ");
+		else if(happinessIndexOf(character) < 0)
+			System.out.println("more sad than happy. ");
+		else
+			System.out.println("equally happy and sad. ");	
+	}
+	
+		// javna metoda koja stampa karakter sa najvise emotikona zeljenog tipa
+	
+	public void printCharacterWithMostDisposition(EmojiType emojiType) {
+		Character mostDispositionCharacter = null;
+		
+		int mostDispositionCounter = 0;
+		
+		for(Character character : characterMessages.keySet()) {
+			
+			int dispositionCounter = countEmojisByCharacterAndType(character, emojiType);
+			
+			if(dispositionCounter>mostDispositionCounter) {
+				mostDispositionCounter = dispositionCounter;
+				mostDispositionCharacter = character;
+			}
+		}
+		System.out.println(mostDispositionCharacter.toString() + " is the most " + emojiType.getMood() + " of them all. ");
+	}
+	
+		// javna metoda koja stampa broj emotikona koje je jedan karakter poslao drugome
+	
+	public void printCharacterToCharacterDisposition(Character character1, Character character2, EmojiType emojiType) {	
+		int emojisFrom1To2 = countEmojisFromCharacterToCharacter(character1, character2, emojiType);
+		int emojisFrom2To1 = countEmojisFromCharacterToCharacter(character2, character1, emojiType);
+		
+		System.out.println(character1.toString() + " sent " + emojisFrom1To2 + " " + emojiType.getMood() + " emojis to " + character2.toString() + ".");
+		System.out.println(character2.toString() + " sent " + emojisFrom2To1 + " " + emojiType.getMood() + " emojis to " + character1.toString() + ".");
+		
+		if(emojisFrom1To2 > emojisFrom2To1)
+			System.out.println(character1.toString() + ": more " + emojiType.getMood() + " " + character2.toString() + " than vice versa. ");
+		else if(emojisFrom1To2 < emojisFrom2To1)
+			System.out.println(character2.toString() + ": more " + emojiType.getMood() + " " + character1.toString() + " than vice versa. ");
+		else
+			System.out.println(character1.toString() + " and " + character2.toString() + " love each other equally. ");
+		}
+	}

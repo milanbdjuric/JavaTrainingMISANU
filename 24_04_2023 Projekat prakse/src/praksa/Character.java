@@ -9,13 +9,20 @@ public class Character implements StringExtractor<Character>{
 	@Override
 	public Character extractFromString(String entity, String fieldSeparator) {
 		
+			// delimo string na polja fieldseparatorom (" ")
+		
 		String[] fields = entity.split(fieldSeparator);
+		
 		this.firstName = fields[0].trim();
+		
+			// pojedini karakteri imaju samo ime. ako imaju i prezime - onda:
 		
 		if(fields.length > 1)
 			this.lastName = fields[1].trim();
 		return this;
 	}
+	
+		// metoda koja vraca celobrojnih hash vrednost za ime i prezime; koristicemo je za poredjenje u GoT klasi
 	
 	@Override
 	public int hashCode() {
