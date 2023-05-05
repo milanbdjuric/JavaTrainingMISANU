@@ -43,6 +43,8 @@ public class Biblioteka {
 	}
 	
 	
+	
+	
 	public static void main(String[] args) {
 		
 		String url = "jdbc:mysql://localhost:3306/biblioteka";
@@ -69,7 +71,7 @@ public class Biblioteka {
 		int executeInsert = preparedStatement.executeUpdate();
 		
 		if(executeInsert > 0)
-			System.out.println("\nPodaci uneti!");
+			System.out.println("Podaci uneti!");
 		
 		
 		read();
@@ -88,7 +90,7 @@ public class Biblioteka {
 		int executeUpdate = preparedStatement.executeUpdate();
 		
 		if(executeUpdate > 0)
-			System.out.println("\nIzmena je uneta!");
+			System.out.println("Izmena je uneta!");
 		
 		
 		read();
@@ -106,7 +108,7 @@ public class Biblioteka {
 		int executeDelete = preparedStatement.executeUpdate();
 		
 		if(executeDelete > 0)
-			System.out.println("\nPodatak je obrisan!");
+			System.out.println("Podatak je obrisan!");
 		
 		read();
 		

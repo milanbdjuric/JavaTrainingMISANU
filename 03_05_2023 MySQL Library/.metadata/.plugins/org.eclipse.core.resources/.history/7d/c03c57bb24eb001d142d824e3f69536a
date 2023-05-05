@@ -4,45 +4,6 @@ import java.sql.*;
 
 public class Biblioteka {
 
-	public static void read() {
-		
-		// READ
-		
-		String url = "jdbc:mysql://localhost:3306/biblioteka";
-		String user = "root";
-		String pass = "";
-		
-		try(Connection connection = DriverManager.getConnection(url, user, pass)){
-		
-		String select = "SELECT * FROM autori";
-		
-		Statement statement = connection.createStatement();
-		
-		ResultSet resultSet = statement.executeQuery(select);
-		
-		System.out.println("\nIzgled tabele:\n");
-		
-		while(resultSet.next()) {
-			
-			String ime = resultSet.getString(2);
-			String prezime = resultSet.getString(3);
-			
-			StringBuilder stringBuilder = new StringBuilder();
-			
-			stringBuilder.append("Ime: ");
-			stringBuilder.append(ime);
-			stringBuilder.append(", Prezime: ");
-			stringBuilder.append(prezime);
-
-			
-			System.out.println(stringBuilder.toString());
-			}	
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}		
-	}
-	
-	
 	public static void main(String[] args) {
 		
 		String url = "jdbc:mysql://localhost:3306/biblioteka";
@@ -53,13 +14,11 @@ public class Biblioteka {
 			
 		System.out.println("Radi veza!");
 		
-		read();
-		
 		
 		// CREATE
 		
 		
-		String insert = "INSERT INTO autori(ime, prezime) VALUES (?, ?)";
+		String insert = "INSERT INTO autori(ime, prezime, bibliotekaID) VALUES (?, ?)";
 		
 		PreparedStatement preparedStatement = connection.prepareCall(insert);
 		
@@ -69,10 +28,33 @@ public class Biblioteka {
 		int executeInsert = preparedStatement.executeUpdate();
 		
 		if(executeInsert > 0)
-			System.out.println("\nPodaci uneti!");
+			System.out.println("Podaci uneti!");
 		
 		
-		read();
+		// READ
+		
+		
+		String select = "SELECT * FROM autori";
+		
+		Statement statement = connection.createStatement();
+		
+		ResultSet resultSet = statement.executeQuery(select);
+		
+		while(resultSet.next()) {
+			
+			String ime = resultSet.getString(2);
+			String prezime = resultSet.getString(3);
+			
+			StringBuilder stringBuilder = new StringBuilder();
+			
+			stringBuilder.append("Ime: ");
+			stringBuilder.append(ime);
+			stringBuilder.append("\nPrezime: ");
+			stringBuilder.append(prezime);
+
+			
+			System.out.println(stringBuilder.toString());
+		}
 		
 		
 		// UPDATE
@@ -83,15 +65,12 @@ public class Biblioteka {
 		preparedStatement = connection.prepareCall(update);
 		
 		preparedStatement.setString(1, "Kockica");
-		preparedStatement.setString(2, "Copic");
+		preparedStatement.setString(1, "Copic");
 		
 		int executeUpdate = preparedStatement.executeUpdate();
 		
 		if(executeUpdate > 0)
-			System.out.println("\nIzmena je uneta!");
-		
-		
-		read();
+			System.out.println("Izmena uneta!");
 		
 		
 		// DELETE
@@ -106,9 +85,7 @@ public class Biblioteka {
 		int executeDelete = preparedStatement.executeUpdate();
 		
 		if(executeDelete > 0)
-			System.out.println("\nPodatak je obrisan!");
-		
-		read();
+			System.out.println("Izmena uneta!");
 		
 		}catch (SQLException e) {
 			e.printStackTrace();
