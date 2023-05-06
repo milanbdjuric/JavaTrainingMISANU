@@ -1,0 +1,24 @@
+package djuric;
+
+public class Mejn {
+
+	public static void main(String[] args) throws Exception {
+		
+		Autor.read();
+		
+		Autor noviAutor = new Autor();
+		
+		noviAutor.create();
+		
+		Autor.read();
+		
+		noviAutor.update();
+		
+		Autor.read();
+		
+		noviAutor.delete();
+		
+		Autor.read();
+
+	}
+}

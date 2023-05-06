@@ -1,0 +1,55 @@
+package djuric;
+
+import java.sql.*;
+
+public class Bibliotekar {
+	
+	private Connection connection;
+
+    public Bibliotekar(String host, String database, String username, String password) throws SQLException {
+        String url = "jdbc:mysql://" + host + "/" + database + "?useSSL=false";
+        connection = DriverManager.getConnection(url, username, password);
+    }
+
+    public void addBibliotekar(String ime, String prezime, String mesto, String ulica, String broj, long JMBG, int telefon) throws SQLException {
+        String query = "INSERT INTO bibliotekari (ime, prezime, mesto, ulica, broj, JMBG, telefon) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, ime);
+        statement.setString(2, prezime);
+        statement.setString(3, mesto);
+        statement.setString(4, ulica);
+        statement.setString(5, broj);
+        statement.setLong(6, JMBG);
+        statement.setInt(7, telefon);
+        statement.executeUpdate();
+    }
+
+    public void deleteBibliotekar(int bibliotekarID) throws SQLException {
+        String query = "DELETE FROM bibliotekari WHERE bibliotekarID = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setInt(1, bibliotekarID);
+        statement.executeUpdate();
+    }
+
+    public void updateBibliotekar(int bibliotekarID, String ime, String prezime, String mesto, String ulica, String broj, long JMBG, int telefon) throws SQLException {
+        String query = "UPDATE bibliotekari SET ime = ?, prezime = ?, mesto = ?, ulica = ?, broj = ?, JMBG = ?, telefon = ? WHERE bibliotekarID = ?";
+        PreparedStatement statement = connection.prepareStatement(query);
+        statement.setString(1, ime);
+        statement.setString(2, prezime);
+        statement.setString(3, mesto);
+        statement.setString(4, ulica);
+        statement.setString(5, broj);
+        statement.setLong(6, JMBG);
+        statement.setInt(7, telefon);
+        statement.setInt(8, bibliotekarID);
+        statement.executeUpdate();
+    }
+
+    public void close() throws SQLException {
+        if (connection != null) {
+            connection.close();
+        }
+    }
+	
+
+}

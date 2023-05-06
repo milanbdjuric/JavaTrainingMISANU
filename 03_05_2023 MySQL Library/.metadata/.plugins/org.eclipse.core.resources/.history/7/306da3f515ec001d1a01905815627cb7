@@ -1,0 +1,15 @@
+package djuric;
+
+public class Mejn {
+
+	public static void main(String[] args) throws Exception {
+		
+		Autor.readTableAutori();
+		
+
+		
+
+
+	}
+
+}

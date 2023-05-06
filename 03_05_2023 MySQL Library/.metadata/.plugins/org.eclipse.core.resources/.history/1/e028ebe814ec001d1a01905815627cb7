@@ -1,0 +1,124 @@
+package djuric;
+
+import java.io.*;
+import java.sql.*;
+
+public class Clanovi {
+	
+	Connection connection = DatabaseConnection.getConnection();
+
+    public void createClan() throws SQLException, IOException {
+        
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	
+    	System.out.print("Unesite ime: ");   	
+    	String ime = br.readLine();
+    	
+    	System.out.print("Unesite prezime: ");   	
+    	String prezime = br.readLine();
+    	
+    	System.out.print("Unesite datumRodjenja: ");   	
+    	String datumRodjenja = br.readLine();
+    	
+    	System.out.print("Unesite mesto: ");   	
+    	String mesto = br.readLine();
+    	
+    	System.out.print("Unesite ulicu: ");   	
+    	String ulica = br.readLine();
+    	
+    	System.out.print("Unesite broj:: ");   	
+    	String broj = br.readLine();
+    	
+    	System.out.print("Unesite telefon: ");
+    	int telefon = Integer.parseInt(br.readLine());
+    	
+    	String insert = "INSERT INTO clanovi (ime, prezime, datumRodjenja, mesto, "
+        		+ "ulica, broj, telefon) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    	
+    	PreparedStatement preparedStatement = connection.prepareStatement(insert);
+    	
+    	preparedStatement.setString(1, ime);
+    	preparedStatement.setString(2, prezime);
+    	preparedStatement.setString(3, datumRodjenja);
+    	preparedStatement.setString(4, mesto);
+    	preparedStatement.setString(5, ulica);
+    	preparedStatement.setString(6, broj);
+    	preparedStatement.setInt(7, telefon);
+    	
+    	int executeUpdate = preparedStatement.executeUpdate();
+    	
+    	if(executeUpdate > 0) {
+    		System.out.println("Podaci su uspesno uneti! ");
+    	}
+    	   	
+    	preparedStatement.close();
+    }
+
+    public void readClanByClanID(int clanID) throws SQLException {
+    	
+    	String read = "SELECT * FROM clanovi WHERE clanID = ?";
+        
+    	PreparedStatement preparedStatement = connection.prepareStatement(read);
+        
+    	preparedStatement.setInt(1, clanID);
+    	
+        ResultSet resultSet = preparedStatement.executeQuery();
+        
+        if (resultSet.next()) {
+        	
+            String ime = resultSet.getString("ime");
+            String prezime = resultSet.getString("prezime");
+            String datumRodjenja = resultSet.getString("datumRodjenja");
+            String mesto = resultSet.getString("mesto");
+            String ulica = resultSet.getString("ulica");
+            String broj = resultSet.getString("broj");
+            int telefon = resultSet.getInt("telefon");
+            
+            System.out.println("Clan ID: " + clanID + "\nIme: " + ime + "\nPrezime: " + prezime + "\nDatum rodjenja: " + datumRodjenja 
+            		+ "\nMesto: " + mesto + "\nUlica: " + ulica + "\nBroj: " + broj + "\nTelefon: " + telefon);
+        
+        } else {
+        	
+            System.out.println("Clan ID " + clanID + " nije pronadjen u bazi! ");
+        }
+        
+        resultSet.close();
+        preparedStatement.close();
+    }
+
+    public void updateClan(int clanID, String ime, String prezime, String datumRodjenja, String mesto, String ulica, String broj, int telefon) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("UPDATE clanovi SET ime = ?, prezime = ?, datumRodjenja = ?, mesto = ?, ulica = ?, broj = ?, telefon = ? WHERE clanID = ?");
+        statement.setString(1, ime);
+        statement.setString(2, prezime);
+        statement.setString(3, datumRodjenja);
+        statement.setString(4, mesto);
+        statement.setString(5, ulica);
+        statement.setString(6, broj);
+        statement.setInt(7, telefon);
+        statement.setInt(8, clanID);
+        int rowsUpdated = statement.executeUpdate();
+        if (rowsUpdated > 0) {
+            System.out.println("Clan ID " + clanID + " updated successfully.");
+        } else {
+            System.out.println("Clan ID " + clanID + " not found.");
+        }
+        statement.close();
+    }
+
+    public void deleteClanByClanID(int clanID) throws SQLException {
+        
+    	String delete = "DELETE FROM clanovi WHERE clanID = ?";
+    	
+    	PreparedStatement preparedStatement = connection.prepareStatement(delete);
+    	
+        preparedStatement.setInt(1, clanID);
+        
+        int executeDelete = preparedStatement.executeUpdate();
+        
+        if (executeDelete > 0) {
+        	System.out.println("Clan je uspesno obrisan iz baze! ");
+        }
+
+    }
+
+}

@@ -1,0 +1,11 @@
+package djuric;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		DatabaseConnection.getConnection();
+
+	}
+
+}
