@@ -1,55 +1,78 @@
 package djuric;
 
-import java.io.*;
-import java.sql.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Biblioteka {
 	
-public class Autor {
-	
-	private String ime, prezime;
-	private int autorID;
+	private String naziv, mesto, ulica, broj, telefon;
+	private int bibliotekaID;
 	private static Connection connection = DatabaseConnection.getConnection();
 	
 	public static void readTable() throws SQLException {
 		
-		String select = "SELECT * FROM autori";
+		String select = "SELECT * FROM biblioteke";
 		
 		Statement statement = connection.createStatement();
 		
 		ResultSet resultSet = statement.executeQuery(select);
 		
-		System.out.println("\nIzgled tabele 'Autori':\n");
+		System.out.println("\nIzgled tabele:\n");
 		
 		while(resultSet.next()) {
-			String ime = resultSet.getString(2);
-			String prezime = resultSet.getString(3);
+			String naziv = resultSet.getString(2);
+			String mesto = resultSet.getString(3);
+			String ulica = resultSet.getString(4);
+			String broj = resultSet.getString(5);
+			String telefon = resultSet.getString(6);
 			
 			StringBuilder stringBuilder = new StringBuilder();
 			
-			stringBuilder.append("Ime: ");
-			stringBuilder.append(ime);
-			stringBuilder.append(", Prezime: ");
-			stringBuilder.append(prezime);
+			stringBuilder.append("Naziv: ");
+			stringBuilder.append(naziv);
+			stringBuilder.append("\nMesto: ");
+			stringBuilder.append(mesto);
+			stringBuilder.append("\nUlica: ");
+			stringBuilder.append(ulica);
+			stringBuilder.append("\nBroj: ");
+			stringBuilder.append(broj);
+			stringBuilder.append("\nTelefon: ");
+			stringBuilder.append(telefon);
 
 			System.out.println(stringBuilder.toString());
 		}	
 	}	
 	
-	public Autor create() throws Exception {
+	public Biblioteka create() throws Exception {
 		
     	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     	
-    	System.out.print("\nUnesite ime novog autora: ");   	
-    	this.ime = br.readLine();
+    	System.out.print("\nUnesite naziv nove biblioteke: ");   	
+    	this.naziv = br.readLine();
+    	System.out.print("\nUnesite mesto nove biblioteke: ");   	
+    	this.mesto = br.readLine();
+    	System.out.print("\nUnesite ulicu nove biblioteke: ");   	
+    	this.ulica = br.readLine();
+    	System.out.print("\nUnesite broj nove biblioteke: ");   	
+    	this.broj = br.readLine();
+    	System.out.print("\nUnesite telefon nove biblioteke: ");   	
+    	this.telefon = br.readLine();
+
     	
-    	System.out.print("\nUnesite prezime novog autora: ");   	
-    	this.prezime = br.readLine();
-    	
-		String insert = "INSERT INTO autori (ime, prezime) VALUES (?, ?)";
+		String insert = "INSERT INTO biblioteke (naziv, mesto, ulica, broj, telefon) VALUES (?, ?, ?, ?, ?)";
     	
     	PreparedStatement preparedStatement = connection.prepareStatement(insert, Statement.RETURN_GENERATED_KEYS);
     	
-    	preparedStatement.setString(1, ime);
-    	preparedStatement.setString(2, prezime);
+    	preparedStatement.setString(1, naziv);
+    	preparedStatement.setString(2, mesto);
+    	preparedStatement.setString(3, ulica);
+    	preparedStatement.setString(4, broj);
+    	preparedStatement.setString(5, telefon);
     	
     	int executeUpdate = preparedStatement.executeUpdate();
     	
@@ -57,7 +80,7 @@ public class Autor {
     		System.out.println("\nPodaci su uspesno uneti! ");
     		ResultSet rs = preparedStatement.getGeneratedKeys();
     		if (rs.next()) {
-    			this.autorID = rs.getInt(1);
+    			this.bibliotekaID = rs.getInt(1);
     		}
     	}
     	   	
@@ -134,4 +157,7 @@ public class Autor {
     	else
     		System.out.println("\nOnda nista :)");
     }
+}
+
+
 }

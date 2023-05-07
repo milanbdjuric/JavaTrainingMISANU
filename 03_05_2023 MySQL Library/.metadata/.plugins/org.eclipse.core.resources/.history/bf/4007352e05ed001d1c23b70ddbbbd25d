@@ -17,7 +17,7 @@ public class Autor {
 		
 		ResultSet resultSet = statement.executeQuery(select);
 		
-		System.out.println("\nIzgled tabele 'Autori':\n");
+		System.out.println("\nIzgled tabele:\n");
 		
 		while(resultSet.next()) {
 			String ime = resultSet.getString(2);

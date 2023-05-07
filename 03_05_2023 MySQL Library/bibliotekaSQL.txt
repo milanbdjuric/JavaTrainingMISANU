@@ -6,7 +6,7 @@ CREATE TABLE biblioteke(
     mesto VARCHAR(30) NOT NULL,
     ulica VARCHAR(45) NOT NULL,
     broj VARCHAR(4) NOT NULL,
-    telefon INT NOT NULL
+    telefon VARCHAR(30) NOT NULL
 )ENGINE = INNODB;
 
 CREATE TABLE clanovi(
@@ -17,7 +17,7 @@ CREATE TABLE clanovi(
     mesto VARCHAR(30) NOT NULL,
     ulica VARCHAR(45) NOT NULL,
     broj VARCHAR(4) NOT NULL,
-    telefon INT
+    telefon VARCHAR(30)
 )ENGINE = INNODB;
 
 CREATE TABLE bibliotekari(
@@ -28,7 +28,7 @@ CREATE TABLE bibliotekari(
     ulica VARCHAR(45) NOT NULL,
     broj VARCHAR(4) NOT NULL,
     JMBG BIGINT(13),
-    telefon INT
+    telefon VARCHAR(30)
 )ENGINE = INNODB;
 
 CREATE TABLE autori(
@@ -143,15 +143,15 @@ INSERT INTO `autori`(`ime`, `prezime`)
 VALUES ('Ivo', 'Andric'), ('Jovan', 'Cvijic'), ('Rasa', 'Popov'), ('Mesa', 'Selimovic');
 
 INSERT INTO `clanovi`(`ime`, `prezime`, `datumRodjenja`, `mesto`, `ulica`, `broj`, `telefon`)
-VALUES ('Milan','Djuric','1979-12-18', 'Beograd', 'Magelanova', '26', 0604704948),
-('Mirko','Lazic','1988-11-13', 'Novi Sad', 'Korzo', '13a', 0623330099),
-('Zivorad','Petronijevic','1981-04-04', 'Beograd', 'Mrvaljeviceva', '33', 0114886108),
-('Vasilije','Radojkovic','1976-03-22', 'Nis', 'Vasina', '1', 0645367652);
+VALUES ('Milan','Djuric','1979-12-18', 'Beograd', 'Magelanova', '26', '0604704948'),
+('Mirko','Lazic','1988-11-13', 'Novi Sad', 'Korzo', '13a', '0623330099'),
+('Zivorad','Petronijevic','1981-04-04', 'Beograd', 'Mrvaljeviceva', '33', '0114886108'),
+('Vasilije','Radojkovic','1976-03-22', 'Nis', 'Vasina', '1', '0645367652');
 
 INSERT INTO `bibliotekari`(`ime`, `prezime`, `mesto`, `ulica`, `broj`, `JMBG`, `telefon`) 
-VALUES ('Milojko','Cabarkapa','Ripanj','Zage Malivuk','53b',1762839448763, 063267365),
-('Bane','Mikic','Pinosava','Glavna','bb',1214567876564,0117654263),
-('Atila','Csanadi','Senta','Barska','1',1111432568700,021123378);
+VALUES ('Milojko','Cabarkapa','Ripanj','Zage Malivuk','53b',1762839448763, '063267365'),
+('Bane','Mikic','Pinosava','Glavna','bb',1214567876564,'0117654263'),
+('Atila','Csanadi','Senta','Barska','1',1111432568700,'021123378');
 
 INSERT INTO `knjige`(`naziv`, `jezik`, `izdavac`, `ISBN`, `stanje`) 
 VALUES ('Na Drini cuprija','srpski','BIGZ', 4657839287384, 5),
