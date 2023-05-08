@@ -5,8 +5,6 @@ import java.util.Arrays;
 public class MergeSort {
 	
 	// metoda koja sjedinjuje dva pod-niza niza niz[]
-	// koristi algoritamski pristup zavadi-pa-vladaj, iliti deljenje vecih problema na vise manjih jednostavnijih potproblema koji se pojedinacno resavaju i kombinuju da se dobije krajnje resenje
-	
 	private static void merge(int[] niz, int leviIndeks, int srednjiIndeks, int desniIndeks) {
 		
 		//  prvi je niz[levi,...,sredina]

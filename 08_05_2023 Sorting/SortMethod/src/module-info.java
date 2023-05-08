@@ -5,5 +5,5 @@
  * @author DJURIC
  *
  */
-module Sorting {
+module SortMethod {
 }
