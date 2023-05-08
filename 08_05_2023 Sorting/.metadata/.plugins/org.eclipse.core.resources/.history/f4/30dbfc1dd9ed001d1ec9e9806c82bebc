@@ -1,0 +1,31 @@
+package djuric;
+
+import java.util.Arrays;
+
+public class BubbleSort {
+
+	private static void bubbleSort(int[] niz) {				// metoda koja poredi susedne elemente u nizu koje dobija kroz argument i rasporedjuje ih	
+		
+		for(int i = 0; i < niz.length - 1; i++) {			// iniciramo spoljnju for petlju koja iterira kroz ceo niz
+			for(int j = 0; j < niz.length - i - 1; j++) {	// iniciramo unutrasnju for petlju kroz niz. gornja granica un. petlje se smanjuje (za vrednost i) jer se u svakom prolazu spoljne petlje poslednja dva elementa u nizu već nalaze na svojim pravim pozicijama, tj. sortirani su
+				if(niz[j] > niz[j+1]) { 					// proveravamo da li je element na indeksu j u nizu veći od prvog narednog elementa
+					int pomocni = niz[j];					// ako jeste stvaramo pomocnu promenljivu i dodeljujemo joj vrednost elementa na indeksu j
+					niz[j] = niz[j+1];						// dodeljujemo elementu na indeksu j vrednost prvog sledeceg elementa
+					niz[j+1] = pomocni;						// postavljamo vrednost elementa na indeksu j+1 na vrednost pomocne promenljive
+				}
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		int[] nizCifara = {3, 8, 7, 1, 9, 5, 4, 6, 2};
+		
+		System.out.println("PRE:   " + Arrays.toString(nizCifara));
+		
+		bubbleSort(nizCifara);
+		
+		System.out.println("POSLE: " + Arrays.toString(nizCifara));		
+	}
+
+}

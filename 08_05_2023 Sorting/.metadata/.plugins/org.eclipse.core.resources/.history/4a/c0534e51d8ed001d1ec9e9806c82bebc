@@ -1,0 +1,31 @@
+package djuric;
+
+import java.util.Arrays;
+
+public class BubbleSort {
+
+	private static void bubbleSort(int[] niz) {
+		
+		for(int i = 0; i < niz.length - 1; i++) {
+			for(int j = 0; j < niz.length - i - 1; j++) {
+				if(niz[j] > niz[j+1]) {
+					int pomocni = niz[j];
+					niz[j] = niz[j+1];
+					niz[j+1] = pomocni;
+				}
+			}
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		int[] nizCifara = {3, 8, 7, 1, 9, 5, 4, 6, 2};
+		
+		System.out.println("PRE:   " + Arrays.toString(nizCifara));
+		
+		bubbleSort(nizCifara);
+		
+		System.out.println("POSLE: " + Arrays.toString(nizCifara));		
+	}
+
+}

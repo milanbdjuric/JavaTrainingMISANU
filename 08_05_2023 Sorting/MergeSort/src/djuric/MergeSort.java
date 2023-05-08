@@ -1,0 +1,90 @@
+package djuric;
+
+import java.util.Arrays;
+
+public class MergeSort {
+	
+	// metoda koja sjedinjuje dva pod-niza niza niz[]
+	private static void merge(int[] niz, int leviIndeks, int srednjiIndeks, int desniIndeks) {
+		
+		//  prvi je niz[levi,...,sredina]
+		// drugi je niz[sredina + 1,...,desni]
+		
+		// prvo trazimo velicine tih pod-nizova		
+		int podNiz1Velicina = srednjiIndeks - leviIndeks + 1;
+		int podNiz2Velicina = desniIndeks - srednjiIndeks;
+		
+		// pravimo privremene nizove		
+		int leviNiz[] = new int[podNiz1Velicina];
+		int desniNiz[] = new int[podNiz2Velicina];
+		
+		// kopiramo vrednosti u privremene nizove		
+		for(int i = 0; i < podNiz1Velicina; i++)
+			leviNiz[i] = niz[leviIndeks + i];
+		
+		for(int j = 0; j < podNiz2Velicina; j++) {
+			desniNiz[j] = niz[srednjiIndeks + 1 + j];
+		}
+		
+		// pocetni indeksi privremenih nizova su:
+		int i = 0, j = 0;
+		
+		// pocetni indeks novog sjedinjenog niza je:
+		int k = leviIndeks;
+		
+		// sjedinjujemo pod-nizove
+		while(i < podNiz1Velicina && j < podNiz2Velicina) {
+			if(leviNiz[i] <= desniNiz[j]) {
+				niz[k] = leviNiz[i];
+				i++;
+			}
+			else {
+				niz[k] = desniNiz[j];
+				j++;
+			}
+			k++;
+		}
+		
+		// kopiramo preostale elemente levog pod-niza u novi niz, ukoliko ih ima
+		while(i < podNiz1Velicina) {
+			niz[k] = leviNiz[i];
+			i++;
+			k++;
+		}
+		
+		// kopiramo preostale elemente desnog pod-niza u novi niz, ukoliko ih ima		
+		while(i < podNiz2Velicina) {
+			niz[k] = desniNiz[j];
+			j++;
+			k++;
+		}	
+	}
+	
+	// metoda koja sortira niz[levi,..,desni]	
+	private static void sort(int niz[], int leviIndeks, int desniIndeks) {	
+			
+		if (leviIndeks < desniIndeks) {
+			
+			// trazimo srednju tacku
+			int srednjiIndeks = leviIndeks + (desniIndeks - leviIndeks) / 2;
+			
+			// sortiramo polovine niza
+			sort(niz, leviIndeks, srednjiIndeks);
+			sort(niz, srednjiIndeks+1, desniIndeks);
+			
+			// spajamo sortitane polovine
+			merge(niz, leviIndeks, srednjiIndeks, desniIndeks);	
+		}
+	}
+	
+	public static void main(String[] args) {
+		
+		int[] nizCifara = {3, 8, 7, 1, 9, 5, 4, 6, 2};
+		
+		System.out.println("PRE:   " + Arrays.toString(nizCifara));
+		
+		sort(nizCifara, 0, nizCifara.length - 1);
+		
+		System.out.println("POSLE: " + Arrays.toString(nizCifara));
+	}
+}

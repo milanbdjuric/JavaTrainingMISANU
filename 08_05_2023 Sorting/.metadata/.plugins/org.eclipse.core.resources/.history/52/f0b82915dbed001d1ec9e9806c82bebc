@@ -1,0 +1,34 @@
+package djuric;
+
+import java.util.Arrays;
+
+public class SelectionSort {
+	
+	private static void selectionSort(int[] niz) {
+		
+		for(int i = 0; i < niz.length - 1; i++) {
+			int minIndex = i;
+			for(int j = i + 1; j < niz.length; j++) {
+				if(niz[j] < niz[minIndex]) {
+					minIndex = j;
+				}	
+			}
+			int pomocni = niz[i];
+			niz[i] = niz[minIndex];
+			niz[minIndex] = pomocni;
+		}
+	}
+
+	public static void main(String[] args) {
+		
+		int[] nizCifara = {3, 8, 7, 1, 9, 5, 4, 6, 2};
+		
+		System.out.println("PRE:   " + Arrays.toString(nizCifara));
+		
+		selectionSort(nizCifara);
+		
+		System.out.println("POSLE: " + Arrays.toString(nizCifara));
+
+	}
+
+}
