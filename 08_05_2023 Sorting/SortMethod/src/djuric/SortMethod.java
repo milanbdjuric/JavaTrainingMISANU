@@ -10,7 +10,7 @@ public class SortMethod {
 		
 		System.out.println("PRE:   " + Arrays.toString(nizCifara));
 		
-		// (brzo) sortiranje je moguce vrsiti i pozivanjem ugradjene staticke metode sort() klase Array
+		// (brzo) sortiranje je moguce vrsiti i pozivanjem ugradjene staticke metode sort() klase Arrays
 		Arrays.sort(nizCifara);
 		
 		System.out.println("POSLE: " + Arrays.toString(nizCifara));
