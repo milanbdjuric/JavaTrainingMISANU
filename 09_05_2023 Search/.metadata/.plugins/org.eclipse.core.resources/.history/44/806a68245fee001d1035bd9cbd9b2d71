@@ -1,0 +1,74 @@
+package djuric;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class FibonacciSearch {
+
+	private static int fibonacciSearch(int[] sortiraniNiz, int ciljanaVrednost) {
+		
+		// F(n) = F(n-1) + F(n-2)
+		
+		int fib2 = 0;				// F(n-2)
+		int fib1 = 1;				// F(n-1)
+		int fib = fib2 + fib1;		// F(n)
+		
+		int duzinaNiza = sortiraniNiz.length;
+		
+		while(fib < duzinaNiza) {
+			fib2 = fib1;
+			fib1 = fib;
+			fib = fib2 + fib1;
+		}
+		
+		int ofset = -1;
+		
+		while (fib > 1){
+			int i = Math.min(ofset + fib2, duzinaNiza - 1);
+			
+			if(sortiraniNiz[i] < ciljanaVrednost) {
+				fib = fib1;
+				fib1 = fib2;
+				fib2 = fib - fib1;
+				ofset = i;
+			} else if(sortiraniNiz[i] > ciljanaVrednost) {
+				fib = fib2;
+				fib1 = fib1 - fib2;
+				fib2 = fib - fib1;	
+			} else
+				return i;
+		}
+		if (fib1 == 1 && sortiraniNiz[ofset + 1] == ciljanaVrednost)
+			return ofset + 1;
+		
+		return -1;		
+	}
+	
+	public static void main(String[] args) {
+		
+		int niz[] = {5, 77, 54, 24, 44, 100, 1, 2, 55, 123, 72, 3, 201, 187};
+
+		Arrays.sort(niz);
+		
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("Unesite element da vidimo da li je u nizu: ");
+
+		int ciljanaVrednost = sc.nextInt();
+
+		int indeks = fibonacciSearch(niz, ciljanaVrednost);
+
+		if(indeks == -1)
+			System.out.println("Trazeni element nije ovde u nizu. ");
+		else
+			System.out.println("Element " + ciljanaVrednost + " je pronadjen!\nNjegov indeks je: " + indeks);
+		
+		System.out.println("Izgled niza: " + Arrays.toString(niz));
+
+		sc.close();
+		
+		
+
+	}
+
+}

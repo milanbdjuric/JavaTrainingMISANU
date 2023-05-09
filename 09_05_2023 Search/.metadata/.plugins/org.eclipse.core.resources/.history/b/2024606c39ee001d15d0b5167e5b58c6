@@ -1,0 +1,51 @@
+package djuric;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class BinarySearch {
+
+	private static int binarySearch(int[] sortiraniNiz, int ciljanaVrednost) {
+		
+		int levi = 0;
+		int desni = sortiraniNiz.length - 1;
+		
+		while(levi <= desni) {
+			
+			int srednji = levi + ((levi - desni) / 2);
+			
+			if(sortiraniNiz[srednji] == ciljanaVrednost)
+				return srednji;
+			else if (sortiraniNiz[srednji] < ciljanaVrednost)
+				levi = srednji + 1;
+			else
+				desni = srednji - 1;
+		}
+		return -1;
+	}
+	
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+		
+		int niz[] = {5, 1, 77, 54, 24, 44, 100, 1, 2, 55, 123, 72, 3, 201, 187};
+		
+		System.out.println("Unesite element da vidimo da li je u nizu: ");
+		
+		int kljuc = sc.nextInt();
+		
+		int indeks = binarySearch(niz, kljuc);
+		
+		if(indeks == -1)
+			System.out.println("Trazeni element nije ovde u nizu. ");
+		else
+			System.out.println("Element " + kljuc + " je pronadjen!\nNjegov indeks je: " + indeks);
+		
+		sc.close();
+
+		
+		
+
+	}
+
+}

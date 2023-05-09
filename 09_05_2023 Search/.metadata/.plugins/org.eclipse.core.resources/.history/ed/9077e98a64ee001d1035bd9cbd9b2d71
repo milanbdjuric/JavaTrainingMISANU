@@ -1,0 +1,85 @@
+package djuric;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class FibonacciSearch {
+
+	private static int fibonacciSearch(int[] sortiraniNiz, int ciljanaVrednost) {
+		
+		// formula za fibonacijev niz kaze da je svaki element niza jednak zbiru prethodna dva elementa
+		// dakle: F(n) = F(n-1) + F(n-2) // pri cemu je n>1
+									
+		int fib2 = 0;			// iniciramo fib2 i dodeljujemo vrednost 0 			// F(n-2)
+		int fib1 = 1;			// iniciramo fib1 i dodeljujemo vrednost 1 			// F(n-1)
+		int fib = fib1 + fib2;	// iniciramo fib i dodeljujemo vrednost po formuli 	// F(n)
+		
+		// smestamo duzinu niza u promenljivu
+		int duzinaNiza = sortiraniNiz.length;
+		
+		// petlja se izvrsava sve dok je duzina niza veca od vrednosti trenutnog elementa fib. niza
+		// dakle svaka naredna iteracija izracunava sledeci broj fib.niza - dok ne dodje do kraja
+		while(fib < duzinaNiza) {
+			
+			// vrednost fib1 dodeljujemo fib2 kako bismo zapamtili prethodnu vrednost fib1
+			fib2 = fib1;
+			
+			// vrednost fib dodeljujemo fib2 
+			fib1 = fib;
+			
+			// izracunavamo vrednost fib po formuli fibonacijevog niza
+			fib = fib2 + fib1;
+		}
+		
+		// uvodimo promenljivu ofset koja sluzi za pracenje pozicije u nizu
+		int ofset = -1;
+		
+		while (fib > 1){
+			int i = Math.min(ofset + fib2, duzinaNiza - 1);
+			
+			if(sortiraniNiz[i] < ciljanaVrednost) {
+				fib = fib1;
+				fib1 = fib2;
+				fib2 = fib - fib1;
+				ofset = i;
+			} else if(sortiraniNiz[i] > ciljanaVrednost) {
+				fib = fib2;
+				fib1 = fib1 - fib2;
+				fib2 = fib - fib1;	
+			} else
+				return i;
+		}
+		if (fib1 == 1 && sortiraniNiz[ofset + 1] == ciljanaVrednost)
+			return ofset + 1;
+		
+		return -1;		
+	}
+	
+	public static void main(String[] args) {
+		
+		int niz[] = {5, 77, 54, 24, 44, 100, 1, 2, 55, 123, 72, 3, 201, 187};
+
+		Arrays.sort(niz);
+		
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("Unesite element da vidimo da li je u nizu: ");
+
+		int ciljanaVrednost = sc.nextInt();
+
+		int indeks = fibonacciSearch(niz, ciljanaVrednost);
+
+		if(indeks == -1)
+			System.out.println("Trazeni element nije ovde u nizu. ");
+		else
+			System.out.println("Element " + ciljanaVrednost + " je pronadjen!\nNjegov indeks je: " + indeks);
+		
+		System.out.println("Izgled niza: " + Arrays.toString(niz));
+
+		sc.close();
+		
+		
+
+	}
+
+}

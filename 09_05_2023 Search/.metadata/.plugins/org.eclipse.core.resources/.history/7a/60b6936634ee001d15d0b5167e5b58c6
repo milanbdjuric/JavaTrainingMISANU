@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * @author DJURIC
+ *
+ */
+module BinarySearch {
+}
