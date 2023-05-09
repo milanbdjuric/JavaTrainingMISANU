@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class FibonacciSearch {
 
-	private static int fibonacciSearch(int[] sortiraniNiz, int trazenaVrednost) {
+	private static int fibonacciSearch(int[] sortiraniNiz, int ciljanaVrednost) {
 		
 		// formula za fibonacijev niz kaze da je svaki element niza jednak zbiru prethodna dva elementa
 		// dakle: F(n) = F(n-1) + F(n-2) // pri cemu je n>1
@@ -44,8 +44,8 @@ public class FibonacciSearch {
 			int i = Math.min(ofset + fib2, duzinaNiza - 1);
 			
 			// proveravamo vrednost elementa na poziciji i
-			// ako je manja od trazene vrednosti...
-			if(sortiraniNiz[i] < trazenaVrednost) {
+			// ako je manja od ciljane vrednosti...
+			if(sortiraniNiz[i] < ciljanaVrednost) {
 				
 				//...pretragu nastavljano u desnom podnizu (u odnosu na i)
 				// vrednosti se azuriraju (fib na F(n-1), fib1 na F(n-2) i fib2 na F(n-3) - prelazi se na sledeci segment, ofset se pomera na i
@@ -55,7 +55,7 @@ public class FibonacciSearch {
 				ofset = i;
 				
 			// a ako je veci...	
-			} else if(sortiraniNiz[i] > trazenaVrednost) {
+			} else if(sortiraniNiz[i] > ciljanaVrednost) {
 				
 				// onda u levom.
 				fib = fib2;
@@ -68,8 +68,8 @@ public class FibonacciSearch {
 		}
 	
 		// proveravamo da li je promenljiva fib1 jednaka 1 - ako jeste znaci da se prethodna iteracija zavrsila sa fib = 1
-		// i da se pretraga nalazi na susednom elementu na poziciji ofset+1. ako je tamo trazena vrednost - eto je...
-		if (fib1 == 1 && sortiraniNiz[ofset + 1] == trazenaVrednost)
+		// i da se pretraga nalazi na susednom elementu na poziciji ofset+1. ako je tamo ciljana vrednost - eto ga...
+		if (fib1 == 1 && sortiraniNiz[ofset + 1] == ciljanaVrednost)
 			return ofset + 1;
 		
 		// ...a ako nije - onda vrednosti nije ni bilo u nizu
@@ -98,5 +98,9 @@ public class FibonacciSearch {
 		System.out.println("Izgled niza: " + Arrays.toString(niz));
 
 		sc.close();
+		
+		
+
 	}
+
 }
