@@ -1,0 +1,56 @@
+package djuric;
+
+import java.util.*;
+
+public class WeightedGraph {
+	
+	public static class Grana {
+
+		private String dokle;		
+		private int tezina;
+	        
+		Grana(String dokle, int tezina) {
+			this.dokle = dokle;
+			this.tezina = tezina;
+		}
+		
+		public String getDokle() {
+			return dokle;
+		}
+
+		public int getTezina() {
+			return tezina;
+		}
+	}
+
+	private Map<String, List<Grana>> listaSuseda;
+	
+	WeightedGraph(){
+		listaSuseda = new HashMap<>();
+	}
+	
+	public void dodajCvor(String cvor) {
+		listaSuseda.put(cvor, new LinkedList<>());
+	}
+	
+	public void dodajVezu(String odakle, String dokle, int tezina) {
+        if (!listaSuseda.containsKey(odakle)) {
+            dodajCvor(odakle);
+        }
+
+        if (!listaSuseda.containsKey(dokle)) {
+            dodajCvor(dokle);
+        }
+
+        listaSuseda.get(odakle).add(new Grana(dokle, tezina));
+        listaSuseda.get(dokle).add(new Grana(odakle, tezina));
+    }
+	
+    public List<Grana> getListaSuseda(String cvor) {
+        return listaSuseda.get(cvor);
+    }
+    
+	public void printListaSuseda(String cvor) {
+		System.out.println(cvor + ": " + getListaSuseda(cvor).toString());
+	}
+}

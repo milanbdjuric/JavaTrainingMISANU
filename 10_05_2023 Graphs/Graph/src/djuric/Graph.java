@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Graph {
 	
-	// primer neusmerenog grafa predstavljen pomocu mape u kojoj je kljuc string, a vrednost lista stringova
+	// primer nepovezanog grafa predstavljen pomocu mape u kojoj je kljuc string, a vrednost lista stringova
 	
 	private Map<String, List<String>> listaSuseda;
 	
