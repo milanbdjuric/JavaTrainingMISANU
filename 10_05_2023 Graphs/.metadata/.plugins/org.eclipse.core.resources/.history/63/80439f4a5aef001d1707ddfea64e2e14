@@ -1,0 +1,38 @@
+package djuric;
+
+import java.util.*;
+
+public class Graph {
+	
+	private Map<String, List<String>> listaSuseda;
+	
+	Graph(){
+		listaSuseda = new HashMap<>();
+	}
+	
+	public void dodajCvor(String cvor) {
+		listaSuseda.put(cvor, new LinkedList<>());
+	}
+	
+	public void dodajVezu(String odakle, String dokle) {
+		
+		if(!listaSuseda.containsKey(odakle)) {
+			dodajCvor(odakle);
+		}
+		
+		if(!listaSuseda.containsKey(dokle)) {
+			dodajCvor(dokle);
+		}
+		
+		listaSuseda.get(odakle).add(dokle);
+		listaSuseda.get(dokle).add(odakle);	
+	}
+	
+	public List<String> getListaSuseda(String cvor){
+		return listaSuseda.get(cvor);
+	}
+	
+	public void printListaSuseda(String cvor) {
+		System.out.println(cvor + ": " + getListaSuseda(cvor));
+	}
+}

@@ -1,0 +1,24 @@
+package djuric;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		Graph graf = new Graph();
+		
+		graf.dodajCvor("Mika");
+		graf.dodajCvor("Zika");
+		graf.dodajCvor("Pera");
+		graf.dodajCvor("Laza");
+		
+		graf.dodajVezu("Mika", "Zika");
+		graf.dodajVezu("Mika", "Pera");
+		graf.dodajVezu("Mika", "Laza");
+		graf.dodajVezu("Pera", "Laza");
+		graf.dodajVezu("Pera", "Zika");
+		graf.dodajVezu("Laza", "Zika");
+		
+		System.out.println(graf.getListaSuseda("Mika"));
+		System.out.println(graf.getListaSuseda("Laza"));
+	}
+}
