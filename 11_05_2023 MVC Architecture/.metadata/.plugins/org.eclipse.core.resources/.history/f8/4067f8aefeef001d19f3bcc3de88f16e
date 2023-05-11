@@ -1,0 +1,15 @@
+package djuric;
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		SynthController synthController = new SynthController();
+		
+		synthController.addSynth("Moog", "Sirin");
+		synthController.addSynth("Dreadbox", "Typhon");
+		synthController.addSynth("Roland", "J-6");
+		
+		synthController.updateView();
+	}
+}

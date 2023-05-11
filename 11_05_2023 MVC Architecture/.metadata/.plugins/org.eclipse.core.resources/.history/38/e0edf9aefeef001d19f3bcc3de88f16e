@@ -1,0 +1,24 @@
+package djuric;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class SynthController {
+	
+	private List<Synth> synths;
+	private SynthView synthView;
+	
+	SynthController(){
+		this.synths = new ArrayList<>();
+		this.synthView = new SynthView();
+	}
+	
+	public void addSynth(String manufacturer, String model) {
+		Synth synth = new Synth(manufacturer, model);
+		synths.add(synth);
+	}
+	
+	public void updateView() {
+		synthView.printSynths(synths);
+	}
+}

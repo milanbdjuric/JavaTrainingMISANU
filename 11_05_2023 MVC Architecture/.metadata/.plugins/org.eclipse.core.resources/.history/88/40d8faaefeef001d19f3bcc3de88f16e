@@ -1,0 +1,14 @@
+package djuric;
+
+import java.util.List;
+
+public class SynthView {
+	
+	public void printSynths(List<Synth> synths) {
+		
+		for(Synth synth : synths) {
+			
+			System.out.println("\nMANUFACTURER: " + synth.getManufactrer() + "\nMODEL: " + synth.getModel());
+		}
+	}
+}

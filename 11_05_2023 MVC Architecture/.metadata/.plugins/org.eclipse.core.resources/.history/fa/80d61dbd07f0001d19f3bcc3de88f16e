@@ -1,0 +1,19 @@
+package djuric;
+
+import java.util.List;
+
+	// VIEW ili prikaz podataka obezbedjuje nacine za prezentaciju podataka dobijenih preko kontrolera od strane modela
+
+public class SynthView {
+	
+	// metoda koja stampa listu
+	
+	public void printSynths(List<Synth> synths) {
+		
+		for(Synth synth : synths) {
+			
+			System.out.println("MANUFACTURER: " + synth.getManufactrer() 
+			+ "\nMODEL: " + synth.getModel() + "\n");
+		}
+	}
+}

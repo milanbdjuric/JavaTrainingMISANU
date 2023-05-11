@@ -1,0 +1,31 @@
+package djuric;
+
+import java.util.ArrayList;
+import java.util.List;
+
+	// CONTROLLER ili kontroler - posrednik izmedju MODEL-a i VIEW-a. Tu su glavni mehanizmi za kontrolu toka podataka.
+	// On prihvata i interpretira ulazne podatke korisnika i prosledjuje ih modelu ili ih prikazuje korisniku.
+
+public class SynthController {
+	
+	private List<Synth> synths;
+	private SynthView synthView;
+	
+	SynthController(){
+		this.synths = new ArrayList<>();
+		this.synthView = new SynthView();
+	}
+	
+	// metoda koja argumentom prima stringove od kojih pravi objekat klase Synth pozivanjem konstruktora, i smesta ga u listu
+	
+	public void addSynth(String manufacturer, String model) {
+		Synth synth = new Synth(manufacturer, model);
+		synths.add(synth);
+	}
+	
+	// metoda kontrolera koja azurira prikaz najnovijim podacima iz modela
+	
+	public void updateView() {
+		synthView.printSynths(synths);
+	}
+}

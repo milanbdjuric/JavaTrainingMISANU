@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\DJURIC\Desktop\11_05_2023 MVC Architecture\.metadata\.plugins\org.eclipse.jdt.core
+2110154667.index
+26690034.index
+1865797976.index

@@ -1,0 +1,21 @@
+package djuric;
+
+	// MODEL
+
+public class Synth {
+	
+	private String manufacturer, model;
+	
+	Synth(String manufacturer, String model){
+		this.manufacturer = manufacturer;
+		this.model = model;
+	}
+	
+	public String getManufactrer() {
+		return manufacturer;
+	}
+	
+	public String getModel() {
+		return model;
+	}
+}

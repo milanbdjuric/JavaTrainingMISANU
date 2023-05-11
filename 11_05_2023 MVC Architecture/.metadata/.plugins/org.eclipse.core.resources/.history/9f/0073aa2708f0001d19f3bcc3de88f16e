@@ -1,0 +1,29 @@
+package djuric;
+
+	// USER - pokretacka klasa u ovom primeru glumi korisnika
+
+public class Mejn {
+
+	public static void main(String[] args) {
+		
+		Synth synth = new Synth("Moog", "Sirin");
+		
+		SynthView synthView = new SynthView();
+		
+		SynthController synthController = new SynthController(synth, synthView);
+
+		synthController.updateView();
+		
+		synthController.setSynthManufacturer("Dreadbox");
+		synthController.setSynthModel("Typhon");
+		
+		System.out.println("Posle azuriranja: ");
+		
+		synthController.updateView();
+		
+		
+		
+
+		
+	}
+}
